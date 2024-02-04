@@ -1,0 +1,36 @@
+<p>tasks works!</p>
+<div class="row">
+    <!-- Card column -->
+    <div class="col-12">
+      <mat-card>
+        <mat-card-content>
+          <h4 class="mb-32">Employee Tasks</h4>
+          <mat-tab-group mat-stretch-tabs=" ">
+            <mat-tab *ngFor="let employee of employees" [label]="employee.name">
+              <mat-card-content>
+                <div class="table-responsive">
+                  <table class="table ">
+                    <thead>
+                      <tr>
+                        <th>Service</th>
+                        <th>Duration</th>
+                        <th>Service ID</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let task of employee.tasks">
+                        <td>{{ task.service }}</td>
+                        <td>{{ task.duration }}</td>
+                        <td>{{ task.serviceId }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </mat-card-content>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  
