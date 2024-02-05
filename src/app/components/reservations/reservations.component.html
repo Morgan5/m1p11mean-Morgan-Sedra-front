@@ -3,10 +3,48 @@
     <mat-toolbar>
       <h3>Reservations</h3>
       <span class="example-spacer"></span>
-      <button mat-raised-button class="me-8 mb-8 ml-auto" color="primary" >New</button>
+      <button mat-raised-button class="me-8 mb-8 ml-auto" color="primary" (click)="openNewService()" >New</button>
     </mat-toolbar>
   </mat-card-content>
 </mat-card>
+
+<div class="card" [ngClass]="{'visible': isVisibleFrom, 'hidden': !isVisibleFrom}" >
+  <div class="card-body">
+    <h4 class="mb-32">New service</h4>
+
+    <mat-form-field class="me-24 fs-16" appearance="outline">
+      <mat-label>Client</mat-label>
+      <input matInput [value]="selectedReservation?.clientId" >
+    </mat-form-field>
+
+    <mat-form-field class="me-24 fs-16" appearance="outline">
+      <mat-label>Employe</mat-label>
+      <input matInput [value]="selectedReservation?.employeeId" >
+    </mat-form-field>
+
+    <mat-form-field class="me-24 fs-16" appearance="outline">
+      <mat-label>Service</mat-label>
+      <input matInput [value]="selectedReservation?.serviceId">
+    </mat-form-field>
+
+    <mat-form-field class="me-24 fs-16" appearance="outline">
+      <mat-label>Date</mat-label>
+      <input matInput type="date" [value]="selectedReservation?.date">
+    </mat-form-field>
+
+    <mat-form-field class="me-24 fs-16" appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select [value]="selectedReservation?.status" >
+        <mat-option value="scheduled">Scheduled</mat-option>
+        <mat-option value="completed">Completed</mat-option>
+        <mat-option value="cancelled">Cancelled</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <button mat-raised-button class="me-8 mb-8" (click)="closeNewService()" >Close</button>
+    <button mat-raised-button class="me-8 mb-8 ml-auto" color="primary" >Submit</button>
+  </div>
+</div>
 
 <mat-card class="w-100">
   <mat-card-content>
@@ -31,7 +69,8 @@
           <td>{{ res.date | date: 'yyyy-MM-dd' }}</td>
           <td>{{ res.status }}</td>
           <td>
-            <span class="badge badge-success rounded-pill">{{res.status}}</span>
+            <button mat-raised-button class="me-8 mb-8" color="primary" (click)="openEdit(res._id)">Edit</button>
+            <button mat-raised-button class="me-8 mb-8" color="warn" (click)="delete(res._id)" >Delete</button>
           </td>
         </tr>
       </tbody>

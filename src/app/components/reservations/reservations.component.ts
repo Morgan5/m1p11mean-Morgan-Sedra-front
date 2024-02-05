@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { DemoFlexyModule } from 'src/app/demo-flexy-module';
 
@@ -42,13 +44,37 @@ const appointments: Appointment[] = [
 @Component({
   selector: 'app-reservations',
   standalone: true,
-  imports: [DemoFlexyModule,CommonModule,MatTableModule],
+  imports: [DemoFlexyModule,CommonModule,MatTableModule,FormsModule,MatInputModule],
   templateUrl: './reservations.component.html',
   styleUrls: ['./reservations.component.scss']
 })
 export class ReservationsComponent {
   calendar: number[][] = [];
   reservations: Appointment[];
+  isVisibleFrom:boolean = false;
+  selectedReservation: Appointment | undefined;
+
+  openEdit(reservationId: string):void{
+    this.selectedReservation = this.reservations.find((app) => app._id === reservationId);
+    this.isVisibleFrom = true;
+    console.log(this.selectedReservation);
+  }
+  
+  delete(reservationId: string):void {
+    const index = this.reservations.findIndex((app) => app._id === reservationId);
+
+    if (index !== -1) {
+      this.reservations.splice(index, 1);
+    }
+  }
+
+  openNewService(){
+    this.isVisibleFrom = true;
+  }
+
+  closeNewService(){
+    this.isVisibleFrom = false;
+  }
 
   constructor() {
     this.generateCalendar();
