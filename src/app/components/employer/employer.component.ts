@@ -1,33 +1,70 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { DemoFlexyModule } from 'src/app/demo-flexy-module';
 
-export interface Periodic {
-  id: number;
-  name: string;
-  work: string;
-  project: string;
-  priority: string;
-  badge: string;
-  budget: string;
+interface Employer {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
 }
 
-const ELEMENT_DATA: Periodic[] = [
-  { id: 1, name: 'Deep Javiya', work: 'Frontend Devloper', project: 'Flexy Angular', priority: 'Low', badge: 'badge-info', budget: '$3.9k' },
-  { id: 2, name: 'Nirav Joshi', work: 'Project Manager', project: 'Hosting Press HTML', priority: 'Medium', badge: 'badge-primary', budget: '$24.5k' },
-  { id: 3, name: 'Sunil Joshi', work: 'Web Designer', project: 'Elite Admin', priority: 'High', badge: 'badge-danger', budget: '$12.8k' },
-  { id: 4, name: 'Maruti Makwana', work: 'Backend Devloper', project: 'Material Pro', priority: 'Critical', badge: 'badge-success', budget: '$2.4k' },
-];
-
+const tabEmployer: Employer[] = [
+  {
+    _id: "1",
+    firstName: "John",
+    lastName: "Doe",
+    email: "john.doe@example.com",
+  },
+  {
+    _id: "2",
+    firstName: "Jane",
+    lastName: "Smith",
+    email: "jane.smith@example.com",
+  },
+  {
+    _id: "3",
+    firstName: "Bob",
+    lastName: "Johnson",
+    email: "bob.johnson@example.com",
+  },
+]
 
 @Component({
   selector: 'app-employer',
   standalone: true,
-  imports: [DemoFlexyModule,MatTableModule],
+  imports: [DemoFlexyModule,MatTableModule,CommonModule],
   templateUrl: './employer.component.html',
   styleUrls: ['./employer.component.scss']
 })
 export class EmployerComponent {
-  dataSource = ELEMENT_DATA;
-  displayedColumns: string[] = ['id', 'name', 'work', 'project', 'priority', 'badge', 'budget'];
+  employers: Employer[] = tabEmployer;
+  isVisibleFrom = false;
+  selectedEmp: Employer | undefined;
+
+  constructor(){
+  }
+
+  opneEdit(EmpId: string):void{
+    this.selectedEmp = this.employers.find((app)=>app._id === EmpId);
+    this.isVisibleFrom = true;
+  }
+
+  delete(EmpId: string):void{
+    const index = this.employers.findIndex((app)=>app._id === EmpId);
+    if(index !== -1){
+      this.employers.splice(index, 1);
+    }
+
+  }
+
+  openNewEmployer(){
+    this.selectedEmp = undefined;
+    this.isVisibleFrom = true;
+  }
+
+  closeNewEmployer(){
+    this.isVisibleFrom = false;
+  }
 }

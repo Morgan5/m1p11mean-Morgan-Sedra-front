@@ -54,10 +54,15 @@ export class ReservationsComponent {
   isVisibleFrom:boolean = false;
   selectedReservation: Appointment | undefined;
 
+  constructor() {
+    this.generateCalendar();
+    this.reservations = appointments;
+  }
+
   openEdit(reservationId: string):void{
     this.selectedReservation = this.reservations.find((app) => app._id === reservationId);
     this.isVisibleFrom = true;
-    console.log(this.selectedReservation);
+    console.log(this.selectedReservation?.date);
   }
   
   delete(reservationId: string):void {
@@ -68,17 +73,12 @@ export class ReservationsComponent {
     }
   }
 
-  openNewService(){
+  openNewReservation(){
     this.isVisibleFrom = true;
   }
 
-  closeNewService(){
+  closeNewReservation(){
     this.isVisibleFrom = false;
-  }
-
-  constructor() {
-    this.generateCalendar();
-    this.reservations = appointments;
   }
 
   generateCalendar() {
