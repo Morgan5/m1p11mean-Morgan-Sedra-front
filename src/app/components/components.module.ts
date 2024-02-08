@@ -23,6 +23,8 @@ import { ServicesComponent } from './services/services.component';
 import { EmployerComponent } from './employer/employer.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { TasksComponent } from './tasks/tasks.component';
+import { InscriptionClientComponent } from './inscription-client/inscription-client.component';
+import { LoginClientComponent } from './login-client/login-client.component';
 
 
 @NgModule({
@@ -72,6 +74,8 @@ import { TasksComponent } from './tasks/tasks.component';
     TasksComponent
   ],
   declarations: [ 
+  
+    InscriptionClientComponent, LoginClientComponent
   ]
 })
 export class ComponentsModule { }
