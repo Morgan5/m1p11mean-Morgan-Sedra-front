@@ -7,6 +7,8 @@ import { ServicesComponent } from './components/services/services.component';
 import { EmployerComponent } from './components/employer/employer.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
 import { TasksComponent } from './components/tasks/tasks.component';
+import { InscriptionClientComponent } from './components/inscription-client/inscription-client.component';
+import { LoginClientComponent } from './components/login-client/login-client.component';
 
 const routes: Routes = [
   {
@@ -18,7 +20,9 @@ const routes: Routes = [
       {path:"reservations", component:ReservationsComponent},
       {path:"services", component:ServicesComponent},
       {path:"employers", component:EmployerComponent},
-      {path:"tasks",component:TasksComponent}
+      {path:"tasks",component:TasksComponent},
+      {path:"inscription-client",component:InscriptionClientComponent},
+      {path:"login-client",component:LoginClientComponent}
     ]
   },
 
