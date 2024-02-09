@@ -12,25 +12,31 @@ export class LoginClientComponent implements OnInit {
   password:string = '';
   isSubmitting:boolean = false;
   validationErrors:Array<any> = [];
+  message:string = '';
 
   constructor(public userAuthService: UserAuthService, private router: Router) {}
  
   ngOnInit(): void {
-    if(localStorage.getItem('token') != "" && localStorage.getItem('token') != null){
+    if(localStorage.getItem('token') != "" && localStorage.getItem('token') != null && localStorage.getItem('token') != undefined){
       this.router.navigateByUrl('/dashboard')
     }
   }
  
   loginAction() {
-    this.isSubmitting = true;
+    //this.isSubmitting = true;
     let payload = {
       email:this.email,
       password: this.password,
-  }
+    }
     this.userAuthService.login(payload)
     .then(({data}) => {
-      localStorage.setItem('token', data.token);
-      this.router.navigateByUrl('/dashboard');
+      if(data.success){
+        localStorage.setItem('token', data.token);
+        this.router.navigateByUrl('/dashboard');
+      } else {
+        if(data.msg == 'Client not found') this.message = "L'utilisateur n'existe pas";
+        if(data.msg == 'Wrong password') this.message = "Mot de passe incorrect";
+      }
       return data
     }).catch(error => {
       this.isSubmitting = false;

@@ -1,10 +1,17 @@
+<div *ngIf="message != '' " class="alert alert-danger alert-text-danger d-flex fs-14 align-items-center rounded mb-16" role="alert">
+  <i-feather name="alert-circle" class="text-danger feather-base me-12"></i-feather>
+  {{message}}
+</div>
+
+<div *ngIf="validationErrors.length > 0" class="alert alert-danger alert-text-danger d-flex fs-14 align-items-center rounded mb-16" role="alert">
+  <i-feather name="alert-circle" class="text-danger feather-base me-12"></i-feather>
+  {{validationErrors}}
+</div>
+
 <div class="card">
     <div class="card-body">
       <h4 class="mb-32">Connexion</h4>
       <form>
-        <p *ngIf="validationErrors.length > 0" class='text-center '>
-          <small class='text-danger'>{{validationErrors}}</small>
-        </p>
         <mat-form-field class="me-24 fs-16" >
           <mat-label>Email</mat-label>
           <input matInput type="email" placeholder="Entez votre email" name="email" [(ngModel)]="email">

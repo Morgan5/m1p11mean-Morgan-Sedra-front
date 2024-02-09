@@ -16,41 +16,58 @@ export class InscriptionClientComponent implements OnInit {
   contact:string = '';
   isSubmitting:boolean = false;
   validationErrors:any = [];
- 
+  message:string = '';
+  valide:boolean = false;
+  
   constructor(public userAuthService: UserAuthService, private router: Router) {}
  
   ngOnInit(): void { }
  
   registerAction() {
-    this.isSubmitting = true;
-    let payload = {
-      firstName:this.firstName,
-      lastName:this.lastName,
-      email:this.email,
-      password:this.password,
-      confirmPassword:this.confirmPassword,
-      contact:this.contact
-    }
-
-    this.userAuthService.register(payload)
-    .then(({data}) => {
-      console.log(data);
-      this.firstName = '';
-      this.lastName = '';
-      this.email = '';
-      this.password = '';
-      this.confirmPassword = '';
-      this.contact = '';
-      this.isSubmitting = false;
-      return data;
-    }).catch(error => {
-      this.isSubmitting = false;
-      if (error.response.data.errors != undefined) {
-        this.validationErrors = error.response.data.errors
+    //this.isSubmitting = true;
+    if(this.password != this.confirmPassword) {
+      this.message = 'Vérifiez votre mot de passe';
+    } else {
+      let payload = {
+        firstName:this.firstName,
+        lastName:this.lastName,
+        email:this.email,
+        password:this.password,
+        contact:this.contact
       }
-      
-      return error
-    })
+  
+      this.userAuthService.register(payload)
+      .then(({data}) => {
+        this.firstName = '';
+        this.lastName = '';
+        this.email = '';
+        this.password = '';
+        this.confirmPassword = '';
+        this.contact = '';
+        this.isSubmitting = false;
+  
+        if(data.success){
+          this.valide = true;
+          this.message = 'Inscription avec succès';
+        } else {
+          this.valide = false;
+          if(data.msg == 'Email already in use') this.message = "L'adresse email existe déjà";
+          if(data.msg == 'Failed to register client') this.message = "Une erreur est survenue";
+        }
+  
+        return data;
+      }).catch(error => {
+        this.isSubmitting = false;
+        this.valide = false;
+        if (error.response.data.errors != undefined) {
+          this.validationErrors = error.response.data.errors
+        }
+        if(error.response.data.msg == 'Email already in use') this.message = "L'Email existe déjà";
+        if(error.response.data.msg == 'Failed to register client') this.message = "Une erreur est survenue";
+        return error
+      })
+    }
+    
     
   }
 }
