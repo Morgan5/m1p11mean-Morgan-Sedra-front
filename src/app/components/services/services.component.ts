@@ -1,5 +1,5 @@
 import { CommonModule, NgClass } from '@angular/common';
-import { Component,OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DemoFlexyModule } from 'src/app/demo-flexy-module';
 import { ServicesService } from './services.service';
 import { HttpClientModule } from '@angular/common/http';

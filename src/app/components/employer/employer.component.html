@@ -11,24 +11,32 @@
   <div class="card" [ngClass]="{'visible': isVisibleFrom, 'hidden': !isVisibleFrom}" >
     <div class="card-body">
       <h4 class="mb-32">New service</h4>
-  
+      <form (ngSubmit)="onSumbit()">
+      
       <mat-form-field class="me-24 fs-16" appearance="outline">
         <mat-label>First name</mat-label>
-        <input matInput [value]="selectedEmp?.firstName">
+        <input matInput [(ngModel)]="newEmp.firstName" name="firstName" required >
       </mat-form-field>
   
       <mat-form-field class="me-24 fs-16" appearance="outline">
         <mat-label>Last name</mat-label>
-        <input matInput [value]="selectedEmp?.lastName">
+        <input matInput [(ngModel)]="newEmp.lastName" name="lastName" required >
       </mat-form-field>
   
       <mat-form-field class="me-24 fs-16" appearance="outline">
         <mat-label>Email</mat-label>
-        <input matInput [value]="selectedEmp?.email">
+        <input matInput [(ngModel)]="newEmp.email" name="email" type="email" required>
+      </mat-form-field>
+
+      <mat-form-field class="me-24 fs-16" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput [(ngModel)]="newEmp.password" name="password" type="password" required>
       </mat-form-field>
   
-      <button mat-raised-button class="me-8 mb-8" (click)="closeNewEmployer()" >Close</button>
-      <button mat-raised-button class="me-8 mb-8 ml-auto" color="primary" >Submit</button>
+      <button mat-raised-button class="me-8 mb-8" (click)="closeNewEmployer()" type="button" >Close</button>
+      <button mat-raised-button class="me-8 mb-8 ml-auto" color="primary" type="submit" >Submit</button>
+    </form>
+
     </div>
   </div>
 
@@ -46,14 +54,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let emp of employers;let i = index ">
+                  <tr *ngFor="let emp of employees;let i = index ">
                     <td>{{ i + 1 }}</td>
                     <td>{{ emp.firstName }}</td>
                     <td>{{ emp.lastName }}</td>
                     <td>{{ emp.email }}</td>
                     <td>
-                      <button mat-raised-button class="me-8 mb-8" color="primary" (click)="opneEdit(emp._id)" >Edit</button>
-                      <button mat-raised-button class="me-8 mb-8" color="warn" (click)="delete(emp._id)" >Delete</button>
+                      <button mat-raised-button class="me-8 mb-8" color="primary" (click)="onEdit(emp)" >Edit</button>
+                      <button mat-raised-button class="me-8 mb-8" color="warn" (click)="onDelete(emp._id)" >Delete</button>
                     </td>
                   </tr>
                 </tbody>
