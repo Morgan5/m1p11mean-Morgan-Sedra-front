@@ -38,6 +38,7 @@ export class FullComponent {
           //this.addEmployeeMenu(); 
         }
         if(decodedToken.role == 'Manager'){
+          this.addManagerMenu();
           // this.addManagerMenu();
         }
       }
@@ -76,7 +77,7 @@ export class FullComponent {
   }
 
   // ito le anlah taloha iny, atsoina fotsiny ao am le constructeur
-  /*oldMenu(): void {
+  addManagerMenu(): void {
     this.sidebarMenu.push(
       {
         link: "/home",
@@ -104,7 +105,8 @@ export class FullComponent {
         menu: "Tasks",
       },
     );
-  }*/
+  }
+  
   
 
 }
