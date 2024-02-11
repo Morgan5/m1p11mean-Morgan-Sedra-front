@@ -56,13 +56,19 @@
             {{ service.name }}
           </p>
           <p class="op-7">
-            {{ 'Price: '+service.price+'  Commission: '+service.commissionPercentage+' Dudartion: '+service.duration+'h'}}
+            {{ 'Price: '+service.price+'  Commission: '+service.commissionPercentage+' Duration: '+service.duration+'h'}}
           </p>
           <p class="op-7">
             {{ service.description }}
           </p>
-          <button mat-flat-button color ="primary" class="fw-normal mt-4" (click)="onEdit(service)">Edit</button>
-          <button mat-flat-button color="warn" (click)="onDelete(service._id)" class="fw-normal mt-4">Delete</button>
+          <div class="row">
+            <div class="col-lg-8">
+              <button mat-flat-button color ="primary" class="fw-normal mt-4" (click)="onEdit(service)">Edit</button>
+            </div>
+            <div class="col-lg-4 ms-2">
+              <button mat-flat-button color="warn" (click)="onDelete(service._id)" class="fw-normal mt-4 ml-auto">Delete</button>
+            </div>
+          </div>
         </div>
       </mat-card-content>
     </mat-card>
