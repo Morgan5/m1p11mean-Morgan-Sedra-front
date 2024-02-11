@@ -17,8 +17,8 @@ export class LoginClientComponent implements OnInit {
   constructor(public userAuthService: UserAuthService, private router: Router) {}
  
   ngOnInit(): void {
-    if(localStorage.getItem('token') != "" && localStorage.getItem('token') != null && localStorage.getItem('token') != undefined){
-      this.router.navigateByUrl('/dashboard')
+    if(sessionStorage.getItem('token') != "" && sessionStorage.getItem('token') != null && sessionStorage.getItem('token') != undefined){
+      this.router.navigateByUrl('/dashboard-client');
     }
   }
  
@@ -31,8 +31,8 @@ export class LoginClientComponent implements OnInit {
     this.userAuthService.login(payload)
     .then(({data}) => {
       if(data.success){
-        localStorage.setItem('token', data.token);
-        this.router.navigateByUrl('/dashboard');
+        sessionStorage.setItem('token', data.token);
+        this.router.navigateByUrl('/dashboard-client');
       } else {
         if(data.msg == 'Client not found') this.message = "L'utilisateur n'existe pas";
         if(data.msg == 'Wrong password') this.message = "Mot de passe incorrect";

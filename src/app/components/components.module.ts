@@ -25,7 +25,11 @@ import { ReservationsComponent } from './reservations/reservations.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { InscriptionClientComponent } from './inscription-client/inscription-client.component';
 import { LoginClientComponent } from './login-client/login-client.component';
-
+import { DashboardClientComponent } from './dashboard-client/dashboard-client.component';
+import { AppointmentSetupComponent } from './dashboard-client/dashboard-client-components/appointment-setup/appointment-setup.component';
+import { AppointmentHistoryComponent } from './dashboard-client/dashboard-client-components/appointment-history/appointment-history.component';
+import { PreferenceManagementComponent } from './dashboard-client/dashboard-client-components/preference-management/preference-management.component';
+import { OnlinePaymentComponent } from './dashboard-client/dashboard-client-components/online-payment/online-payment.component';
 
 @NgModule({
   imports: [
@@ -75,7 +79,7 @@ import { LoginClientComponent } from './login-client/login-client.component';
   ],
   declarations: [ 
   
-    InscriptionClientComponent, LoginClientComponent
+    InscriptionClientComponent, LoginClientComponent, DashboardClientComponent, AppointmentSetupComponent, AppointmentHistoryComponent, PreferenceManagementComponent, OnlinePaymentComponent
   ]
 })
 export class ComponentsModule { }

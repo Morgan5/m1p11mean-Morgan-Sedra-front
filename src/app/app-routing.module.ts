@@ -9,6 +9,11 @@ import { ReservationsComponent } from './components/reservations/reservations.co
 import { TasksComponent } from './components/tasks/tasks.component';
 import { InscriptionClientComponent } from './components/inscription-client/inscription-client.component';
 import { LoginClientComponent } from './components/login-client/login-client.component';
+import { DashboardClientComponent } from './components/dashboard-client/dashboard-client.component';
+import { AppointmentHistoryComponent } from './components/dashboard-client/dashboard-client-components/appointment-history/appointment-history.component';
+import { AppointmentSetupComponent } from './components/dashboard-client/dashboard-client-components/appointment-setup/appointment-setup.component';
+import { OnlinePaymentComponent } from './components/dashboard-client/dashboard-client-components/online-payment/online-payment.component';
+import { PreferenceManagementComponent } from './components/dashboard-client/dashboard-client-components/preference-management/preference-management.component';
 
 const routes: Routes = [
   {
@@ -22,12 +27,17 @@ const routes: Routes = [
       {path:"employers", component:EmployerComponent},
       {path:"tasks",component:TasksComponent},
       {path:"inscription-client",component:InscriptionClientComponent},
-      {path:"login-client",component:LoginClientComponent}
+      {path:"login-client",component:LoginClientComponent},
+      {path:"dashboard-client",component:DashboardClientComponent},
+      {path:"appointment-history-client",component:AppointmentHistoryComponent},
+      {path:"appointment-setup-client",component:AppointmentSetupComponent},
+      {path:"online-payment-client",component:OnlinePaymentComponent},
+      {path:"preference-management-client",component:PreferenceManagementComponent}
     ]
   },
 
-  {path:"", redirectTo:"/home", pathMatch:"full"},
-  {path:"**", redirectTo:"/home", pathMatch:"full"},
+  //{path:"", redirectTo:"/home", pathMatch:"full"},
+  //{path:"**", redirectTo:"/home", pathMatch:"full"},
 ];
 
 @NgModule({

@@ -33,11 +33,11 @@ export class UserAuthService {
  
   getUser(): Promise<any>{
  
-    return axios.get('/api/user', { headers:{Authorization: localStorage.getItem('token')}})
+    return axios.get('/api/user', { headers:{Authorization: sessionStorage.getItem('token')}})
   }
  
   logout(): Promise<any>{
  
-    return axios.post('/api/logout',{}, { headers:{Authorization: localStorage.getItem('token')}})
+    return axios.post('/api/logout',{}, { headers:{Authorization: sessionStorage.getItem('token')}})
   }
 }
