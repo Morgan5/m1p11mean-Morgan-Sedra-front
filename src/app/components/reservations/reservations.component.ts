@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { DemoFlexyModule } from 'src/app/demo-flexy-module';
+import { AppointmentService } from './reservations.service';
 
 interface Appointment {
   _id: string;
@@ -54,10 +55,25 @@ export class ReservationsComponent {
   isVisibleFrom:boolean = false;
   selectedReservation: Appointment | undefined;
 
-  constructor() {
+  appointments: any[] = [];
+
+  constructor(private appointmentService: AppointmentService) {
     this.generateCalendar();
     this.reservations = appointments;
   }
+
+  ngOnInit(){
+    this.loadAppointment();
+  }
+
+  loadAppointment(){
+    this.appointmentService.getFullAppointment().subscribe((appointments)=>{
+      this.appointments = appointments;
+      console.log(appointments);
+    })
+  };
+
+
 
   openEdit(reservationId: string):void{
     this.selectedReservation = this.reservations.find((app) => app._id === reservationId);

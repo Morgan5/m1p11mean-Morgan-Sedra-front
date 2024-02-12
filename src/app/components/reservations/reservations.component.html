@@ -61,12 +61,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let res of reservations;let i = index ">
+        <tr *ngFor="let res of appointments;let i = index ">
           <td>{{ i + 1 }}</td>
-          <td>{{ res.clientId }}</td>
-          <td>{{ res.employeeId }}</td>
-          <td>{{ res.serviceId }}</td>
-          <td>{{ res.date | date: 'yyyy-MM-dd' }}</td>
+          <td>{{ res.clientId.firstName + ' ' + res.clientId.lastName }}</td>
+          <td>{{ res.requestedServices[0].selectedEmployee.firstName + ' ' + res.requestedServices[0].selectedEmployee.lastName }}</td>
+          <td>{{ res.requestedServices[0].serviceId.name }}</td>
+          <td>{{ res.appointmentDate | date: 'yyyy-MM-dd' }}</td>
           <td>{{ res.status }}</td>
           <td>
             <button mat-raised-button class="me-8 mb-8" color="primary" (click)="openEdit(res._id)">Edit</button>
