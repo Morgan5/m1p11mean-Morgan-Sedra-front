@@ -38,12 +38,12 @@
       <button mat-icon-button class="ms-4 me-4" (click)="search=!search">
         <i-feather name="search" class="mt-n3 text-light-muted feather-base text-dark"></i-feather>
       </button>
-      <div class="ms-auto">
+      <div *ngIf="user.token != ''" class="ms-auto">
         <button mat-button class="fs-16 pt-4 pb-4 ps-8 pe-8 text-light-muted d-flex align-items-center" [matMenuTriggerFor]="menu">
           <div class="d-flex align-items-center">
             <img src="assets/images/user2.webp" class="rounded-circle" alt="">
             <span class="fw-light ms-8 text-secondary">Bonjour,</span>
-            <span class="fw-bold ms-8">Sedra</span>
+            <span class="fw-bold ms-8">{{ user.lastName }} {{ user.firstName }}</span>
             <i-feather name="chevron-down" class="feather-base"></i-feather>
           </div>
         </button>
@@ -58,7 +58,7 @@
           <hr>
 
           <div class="p-16">
-            <button mat-flat-button color="accent" class="w-100 text-white">Logout</button>
+            <button mat-flat-button color="accent" class="w-100 text-white" (click)="logOut()">Se déconnecter</button>
           </div>
 
         </mat-menu>
