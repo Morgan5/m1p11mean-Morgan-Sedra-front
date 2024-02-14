@@ -1,96 +1,160 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { DemoFlexyModule } from 'src/app/demo-flexy-module';
 import { AppointmentService } from './reservations.service';
+import { ClientsService } from '../clients/clients.service';
+import { EmployerService } from '../employer/employer.service';
+import { ServicesService } from '../services/services.service';
+import { HttpClientModule } from '@angular/common/http';
 
-interface Appointment {
-  _id: string;
-  clientId: string;
-  employeeId: string;
-  serviceId: string;
-  date: Date;
-  status: string;
-}
-
-const appointments: Appointment[] = [
-  {
-    _id: "appointment123",
-    clientId: "client789",
-    employeeId: "employee002",
-    serviceId: "serviceB",
-    date: new Date("2024-02-15T14:30:00Z"),
-    status: "completed"
-  },
-  {
-    _id: "appointment456",
-    clientId: "client123",
-    employeeId: "employee003",
-    serviceId: "serviceC",
-    date: new Date("2024-03-05T09:45:00Z"),
-    status: "cancelled"
-  },
-  {
-    _id: "appointment789",
-    clientId: "client456",
-    employeeId: "employee001",
-    serviceId: "serviceA",
-    date: new Date("2024-04-20T16:00:00Z"),
-    status: "scheduled"
-  }
-];
 
 @Component({
   selector: 'app-reservations',
   standalone: true,
-  imports: [DemoFlexyModule,CommonModule,MatTableModule,FormsModule,MatInputModule],
+  imports: [DemoFlexyModule,CommonModule,MatTableModule,FormsModule,MatInputModule,NgClass,HttpClientModule],
   templateUrl: './reservations.component.html',
   styleUrls: ['./reservations.component.scss']
 })
 export class ReservationsComponent {
   calendar: number[][] = [];
-  reservations: Appointment[];
   isVisibleFrom:boolean = false;
-  selectedReservation: Appointment | undefined;
+  isEditEnabled: boolean = false;
 
   appointments: any[] = [];
+  clients: any[] = [];
+  employees: any[] = [];
+  services: any[] = [];
+  newAppoint = {
+    clientId: '',
+    appointmentDate: new Date().toISOString().slice(0, -1), 
+    status: '',
+    requestedServices: [
+      {
+        serviceId: '',
+        selectedEmployee: ''
+      }
+    ]
+  };
+  editingAppoint: any = null;
 
-  constructor(private appointmentService: AppointmentService) {
+  constructor(private appointmentService: AppointmentService,private clientService: ClientsService,private employeeService: EmployerService,private serviceService: ServicesService) {
     this.generateCalendar();
-    this.reservations = appointments;
   }
 
   ngOnInit(){
     this.loadAppointment();
+    this.clientService.getAllClientsManager().subscribe((clients)=>{
+      this.clients = clients;
+    });
+    this.employeeService.getAllEmployee().subscribe((employees)=>{
+      this.employees = employees;
+    });
+    this.serviceService.getAllServices().subscribe((services)=>{
+      this.services = services;
+    });
   }
 
   loadAppointment(){
     this.appointmentService.getFullAppointment().subscribe((appointments)=>{
       this.appointments = appointments;
-      console.log(appointments);
     })
   };
 
+  onSubmit(){
+    if(this.editingAppoint){
+      this.appointmentService.updateAppointment(this.editingAppoint._id,this.newAppoint).subscribe(
+        (response)=>{
+          this.loadAppointment();
+          console.log('Rendez-vous modifié avec succès :',response);
+        },
+        (error)=>{
+          console.log('Erreur lors de la modification du rendez-vous :',error);
+        }
+      )
+      this.newAppoint = {
+        clientId: '',
+        appointmentDate: new Date().toISOString().slice(0, -1), 
+        status: '',
+        requestedServices: [
+          {
+            serviceId: '',
+            selectedEmployee: ''
+          }
+        ]
+      };
+      this.editingAppoint = null;
+      this.isVisibleFrom = false;
+    }
+    else{
+      this.appointmentService.createAppointment(this.newAppoint).subscribe(
+        (response)=>{
+          this.loadAppointment();
+          this.isVisibleFrom = false;
+          console.log('Rendez vous cree avec successe',response);
+        },
+        (error)=>{
+          console.log('Erreur lors de creation du rendez vous:',error);
+        }
+      )
+    }
+  };
 
+  onDelete(appointId: string){
+    this.appointmentService.deleteAppointment(appointId).subscribe(
+      (response)=>{
+        this.loadAppointment();
+        console.log('Rendez vous supprimer avec successe',response);
+      },
+      (error)=>{
+        console.log('Erreur lors de la suppretion: ',error);
+      }
+    )
+  }
 
-  openEdit(reservationId: string):void{
-    this.selectedReservation = this.reservations.find((app) => app._id === reservationId);
+  onEdit(appoint: any):void{
+    this.newAppoint.clientId = appoint.clientId._id;
+    this.newAppoint.appointmentDate = new Date(appoint.appointmentDate).toISOString().slice(0, -1);
+    this.newAppoint.status = appoint.status;
+    this.newAppoint.requestedServices[0].serviceId = appoint.requestedServices[0].serviceId._id;
+    this.newAppoint.requestedServices[0].selectedEmployee = appoint.requestedServices[0].selectedEmployee._id;
+    
+    this.editingAppoint = {
+      _id: appoint._id,
+      clientId: appoint.clientId._id,
+      appointmentDate: new Date(appoint.appointmentDate).toISOString().slice(0, -1), 
+      status: appoint.status,
+      requestedServices: [
+        {
+          serviceId: appoint.requestedServices[0].serviceId._id,
+          selectedEmployee: appoint.requestedServices[0].selectedEmployee._id
+        }
+      ]
+    }
+    console.log(appoint);
+    this.isEditEnabled = true;
     this.isVisibleFrom = true;
-    console.log(this.selectedReservation?.date);
   }
   
   delete(reservationId: string):void {
-    const index = this.reservations.findIndex((app) => app._id === reservationId);
-
-    if (index !== -1) {
-      this.reservations.splice(index, 1);
-    }
   }
 
   openNewReservation(){
     this.isVisibleFrom = true;
+    this.isEditEnabled = false;
+    this.newAppoint = {
+      clientId: '',
+      appointmentDate: new Date().toISOString().slice(0, -1), 
+      status: '',
+      requestedServices: [
+        {
+          serviceId: '',
+          selectedEmployee: ''
+        }
+      ]
+    }
   }
 
   closeNewReservation(){

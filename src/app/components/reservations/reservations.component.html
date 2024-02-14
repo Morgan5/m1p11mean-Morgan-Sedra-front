@@ -11,38 +11,53 @@
 <div class="card" [ngClass]="{'visible': isVisibleFrom, 'hidden': !isVisibleFrom}" >
   <div class="card-body">
     <h4 class="mb-32">New service</h4>
-
+    <form (ngSubmit)="onSubmit()" >
+    
     <mat-form-field class="me-24 fs-16" appearance="outline">
       <mat-label>Client</mat-label>
-      <input matInput [value]="selectedReservation?.clientId" >
+      <mat-select [(ngModel)]="newAppoint.clientId" name="client" >
+        <mat-option *ngFor="let client of clients" [value]="client._id">
+          {{ client.firstName+' '+client.lastName }} <!-- Remplacez "name" par le nom de la propriété contenant le nom du client -->
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+
+    <mat-form-field class="me-24 fs-16" appearance="outline" *ngIf="!isEditEnabled" >
+      <mat-label>Employee</mat-label>
+      <mat-select [(ngModel)]="newAppoint.requestedServices[0].selectedEmployee" name="employee" >
+        <mat-option *ngFor="let Employee of employees" [value]="Employee._id">
+          {{ Employee.firstName+' '+Employee.lastName }} 
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
-    <mat-form-field class="me-24 fs-16" appearance="outline">
-      <mat-label>Employe</mat-label>
-      <input matInput [value]="selectedReservation?.employeeId" >
-    </mat-form-field>
-
-    <mat-form-field class="me-24 fs-16" appearance="outline">
+    <mat-form-field class="me-24 fs-16" appearance="outline" *ngIf="!isEditEnabled">
       <mat-label>Service</mat-label>
-      <input matInput [value]="selectedReservation?.serviceId">
+      <mat-select [(ngModel)]="newAppoint.requestedServices[0].serviceId" name="service" >
+        <mat-option *ngFor="let service of services" [value]="service._id">
+          {{ service.name }} 
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field class="me-24 fs-16" appearance="outline">
       <mat-label>Date</mat-label>
-      <input matInput type="date" [value]="selectedReservation?.date">
+      <input matInput type="datetime-local" [(ngModel)]="newAppoint.appointmentDate" name="appointmentDate" >
     </mat-form-field>
 
     <mat-form-field class="me-24 fs-16" appearance="outline">
       <mat-label>Status</mat-label>
-      <mat-select [value]="selectedReservation?.status" >
-        <mat-option value="scheduled">Scheduled</mat-option>
-        <mat-option value="completed">Completed</mat-option>
-        <mat-option value="cancelled">Cancelled</mat-option>
+      <mat-select [(ngModel)]="newAppoint.status" name="Status">
+        <mat-option value="Pending">Pending</mat-option>
+        <mat-option value="Confirmed">Confirmed</mat-option>
+        <mat-option value="Cancelled">Cancelled</mat-option>
       </mat-select>
     </mat-form-field>
     
-    <button mat-raised-button class="me-8 mb-8" (click)="closeNewReservation()" >Close</button>
-    <button mat-raised-button class="me-8 mb-8 ml-auto" color="primary" >Submit</button>
+    <button mat-raised-button class="me-8 mb-8" type="button" (click)="closeNewReservation()" >Close</button>
+    <button mat-raised-button class="me-8 mb-8 ml-auto" type="submit" color="primary" >Submit</button>
+  </form>
   </div>
 </div>
 
@@ -69,8 +84,8 @@
           <td>{{ res.appointmentDate | date: 'yyyy-MM-dd' }}</td>
           <td>{{ res.status }}</td>
           <td>
-            <button mat-raised-button class="me-8 mb-8" color="primary" (click)="openEdit(res._id)">Edit</button>
-            <button mat-raised-button class="me-8 mb-8" color="warn" (click)="delete(res._id)" >Delete</button>
+            <button mat-raised-button class="me-8 mb-8" color="primary" (click)="onEdit(res)">Edit</button>
+            <button mat-raised-button class="me-8 mb-8" color="warn" (click)="onDelete(res._id)" >Delete</button>
           </td>
         </tr>
       </tbody>

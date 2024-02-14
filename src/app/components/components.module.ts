@@ -17,6 +17,7 @@ import { AppointmentSetupComponent } from './dashboard-client/dashboard-client-c
 import { AppointmentHistoryComponent } from './dashboard-client/dashboard-client-components/appointment-history/appointment-history.component';
 import { PreferenceManagementComponent } from './dashboard-client/dashboard-client-components/preference-management/preference-management.component';
 import { OnlinePaymentComponent } from './dashboard-client/dashboard-client-components/online-payment/online-payment.component';
+import { ClientsComponent } from './clients/clients.component';
 
 @NgModule({
   imports: [
@@ -41,7 +42,7 @@ import { OnlinePaymentComponent } from './dashboard-client/dashboard-client-comp
   ],
   declarations: [ 
   
-    InscriptionClientComponent, LoginClientComponent, DashboardClientComponent, AppointmentSetupComponent, AppointmentHistoryComponent, PreferenceManagementComponent, OnlinePaymentComponent
+    InscriptionClientComponent, LoginClientComponent, DashboardClientComponent, AppointmentSetupComponent, AppointmentHistoryComponent, PreferenceManagementComponent, OnlinePaymentComponent, ClientsComponent
   ]
 })
 export class ComponentsModule { }
