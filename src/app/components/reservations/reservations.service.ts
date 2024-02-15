@@ -20,7 +20,7 @@ export class AppointmentService {
     }
 
     createRequestedServices(appointmentId: string, requestedServicesData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/requestedServices/${appointmentId}`, requestedServicesData);
+    return this.http.post<any>(`${this.apiUrl}/requestedService/${appointmentId}`, requestedServicesData);
     }
 
     updateAppointment(appointmentId: string, updatedData: any): Observable<any> {
@@ -34,4 +34,9 @@ export class AppointmentService {
     getFullAppointment(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/full`);
     }
+
+    getAppointmentById(appointmentId: string): Observable<any> {
+      return this.http.get<any>(`${this.apiUrl}/appointment/${appointmentId}`);
+    }
+    
 }

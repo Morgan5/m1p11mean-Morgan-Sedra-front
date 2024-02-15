@@ -10,7 +10,7 @@
 
 <div class="card" [ngClass]="{'visible': isVisibleFrom, 'hidden': !isVisibleFrom}" >
   <div class="card-body">
-    <h4 class="mb-32">New service</h4>
+    <h4 class="mb-32">Appointment</h4>
     <form (ngSubmit)="onSubmit()" >
     
     <mat-form-field class="me-24 fs-16" appearance="outline">
@@ -23,7 +23,7 @@
     </mat-form-field>
     
 
-    <mat-form-field class="me-24 fs-16" appearance="outline" *ngIf="!isEditEnabled" >
+    <mat-form-field class="me-24 fs-16" appearance="outline" *ngIf="isEditEnabled" >
       <mat-label>Employee</mat-label>
       <mat-select [(ngModel)]="newAppoint.requestedServices[0].selectedEmployee" name="employee" >
         <mat-option *ngFor="let Employee of employees" [value]="Employee._id">
@@ -32,7 +32,7 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field class="me-24 fs-16" appearance="outline" *ngIf="!isEditEnabled">
+    <mat-form-field class="me-24 fs-16" appearance="outline" *ngIf="isEditEnabled">
       <mat-label>Service</mat-label>
       <mat-select [(ngModel)]="newAppoint.requestedServices[0].serviceId" name="service" >
         <mat-option *ngFor="let service of services" [value]="service._id">
@@ -61,6 +61,67 @@
   </div>
 </div>
 
+<div class="card" [ngClass]="{'visible': isFormService, 'hidden': !isFormService}" >
+  <div class="card-body">
+    <h4 class="mb-32">Service</h4>
+    <form (ngSubmit)="onSubmitService()" >
+  
+    <mat-form-field class="me-24 fs-16" appearance="outline"  >
+      <mat-label>Employee</mat-label>
+      <mat-select [(ngModel)]="newService.requestedServices[0].selectedEmployee" name="employee" >
+        <mat-option *ngFor="let Employee of employees" [value]="Employee._id">
+          {{ Employee.firstName+' '+Employee.lastName }} 
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="me-24 fs-16" appearance="outline" >
+      <mat-label>Service</mat-label>
+      <mat-select [(ngModel)]="newService.requestedServices[0].serviceId" name="service" >
+        <mat-option *ngFor="let service of services" [value]="service._id">
+          {{ service.name }} 
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <button mat-raised-button class="me-8 mb-8" type="button" (click)="closeNewServise()" >Close</button>
+    <button mat-raised-button class="me-8 mb-8 ml-auto" type="submit" color="primary" >Submit</button>
+  </form>
+  </div>
+</div>
+
+<mat-card class="w-100" *ngIf="isServiceVisible && selectedAppointment && selectedAppointment[0]">
+  <mat-card-content>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Employer</th>
+          <th>Service</th>
+          <th>Date</th>
+          <th>Heure</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let req of selectedAppointment[0].requestedServices; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ req.selectedEmployee.firstName + ' ' + req.selectedEmployee.lastName }}</td>
+          <td>{{ req.serviceId.name }}</td>
+          <td>{{ selectedAppointment[0].appointmentDate | date: 'yyyy-MM-dd' }}</td>
+          <td>{{ selectedAppointment[0].appointmentDate | date: 'HH:mm' }}</td>
+          <td>
+            <button mat-raised-button class="me-8 mb-8" color="primary" (click)="onEdit(selectedAppointment[0])">Edit</button>
+            <button mat-raised-button class="me-8 mb-8" color="warn" >Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-card-content>
+</mat-card>
+
+
+
 <mat-card class="w-100">
   <mat-card-content>
     <table class="table">
@@ -82,8 +143,16 @@
           <td>{{ res.requestedServices[0].selectedEmployee.firstName + ' ' + res.requestedServices[0].selectedEmployee.lastName }}</td>
           <td>{{ res.requestedServices[0].serviceId.name }}</td>
           <td>{{ res.appointmentDate | date: 'yyyy-MM-dd' }}</td>
-          <td>{{ res.status }}</td>
           <td>
+            <span class="badge rounded-pill" [ngClass]="{
+              'badge-success': res.status === 'Confirmed',
+              'badge-warning': res.status === 'Pending',
+              'badge-danger': res.status === 'Cancelled'
+            }">{{ res.status }}</span>
+          </td>
+          <td>
+            <button mat-raised-button class="me-8 mb-8" (click)="onAdd(res)">Add</button>
+            <button mat-raised-button class="me-8 mb-8" color="accent" (click)="onService(res._id)">Service</button>
             <button mat-raised-button class="me-8 mb-8" color="primary" (click)="onEdit(res)">Edit</button>
             <button mat-raised-button class="me-8 mb-8" color="warn" (click)="onDelete(res._id)" >Delete</button>
           </td>

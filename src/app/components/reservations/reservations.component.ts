@@ -21,9 +21,12 @@ import { HttpClientModule } from '@angular/common/http';
 export class ReservationsComponent {
   calendar: number[][] = [];
   isVisibleFrom:boolean = false;
+  isFormService:boolean = false;
   isEditEnabled: boolean = false;
+  isServiceVisible: boolean = false;
 
   appointments: any[] = [];
+  selectedAppointment: any;
   clients: any[] = [];
   employees: any[] = [];
   services: any[] = [];
@@ -38,6 +41,14 @@ export class ReservationsComponent {
       }
     ]
   };
+  newService = {
+    requestedServices: [
+      {
+        serviceId: '',
+        selectedEmployee: ''
+      }
+    ]
+  };  
   editingAppoint: any = null;
 
   constructor(private appointmentService: AppointmentService,private clientService: ClientsService,private employeeService: EmployerService,private serviceService: ServicesService) {
@@ -102,6 +113,19 @@ export class ReservationsComponent {
     }
   };
 
+  onSubmitService(){
+    this.appointmentService.createRequestedServices(this.editingAppoint._id,this.newService).subscribe(
+      (response)=>{
+        this.isFormService = false;
+        this.editingAppoint = null;
+        console.log('Service cree avec successe',response);
+      },
+      (error)=>{
+        console.log('Erreur lors de creation du service:',error);
+      }
+    )
+  }
+
   onDelete(appointId: string){
     this.appointmentService.deleteAppointment(appointId).subscribe(
       (response)=>{
@@ -134,16 +158,46 @@ export class ReservationsComponent {
       ]
     }
     console.log(appoint);
-    this.isEditEnabled = true;
+    this.isEditEnabled = false;
     this.isVisibleFrom = true;
   }
+
+  onAdd(appoint: any){
+    this.editingAppoint = {
+      _id: appoint._id,
+      clientId: appoint.clientId._id,
+      appointmentDate: new Date(appoint.appointmentDate).toISOString().slice(0, -1), 
+      status: appoint.status,
+      requestedServices: [
+        {
+          serviceId: appoint.requestedServices[0].serviceId._id,
+          selectedEmployee: appoint.requestedServices[0].selectedEmployee._id
+        }
+      ]
+    }
+    this.isFormService = true;
+  }
+
+  closeNewServise(){
+    this.isFormService = false;
+  }
   
-  delete(reservationId: string):void {
+  onService(appointId: string){
+    this.isServiceVisible = !this.isServiceVisible;
+    this.appointmentService.getAppointmentById(appointId).subscribe(
+      (response)=>{
+        this.selectedAppointment = response;
+        console.log(response);
+      },
+      (error)=>{
+        console.log('Erreur lors de la recherche: ',error);
+      }
+    )
   }
 
   openNewReservation(){
     this.isVisibleFrom = true;
-    this.isEditEnabled = false;
+    this.isEditEnabled = true;
     this.newAppoint = {
       clientId: '',
       appointmentDate: new Date().toISOString().slice(0, -1), 
