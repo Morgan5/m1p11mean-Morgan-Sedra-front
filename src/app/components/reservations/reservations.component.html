@@ -90,36 +90,41 @@
   </div>
 </div>
 
-<mat-card class="w-100" *ngIf="isServiceVisible && selectedAppointment && selectedAppointment[0]">
-  <mat-card-content>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Employer</th>
-          <th>Service</th>
-          <th>Date</th>
-          <th>Heure</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let req of selectedAppointment[0].requestedServices; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ req.selectedEmployee.firstName + ' ' + req.selectedEmployee.lastName }}</td>
-          <td>{{ req.serviceId.name }}</td>
-          <td>{{ selectedAppointment[0].appointmentDate | date: 'yyyy-MM-dd' }}</td>
-          <td>{{ selectedAppointment[0].appointmentDate | date: 'HH:mm' }}</td>
-          <td>
-            <button mat-raised-button class="me-8 mb-8" color="primary" (click)="onEdit(selectedAppointment[0])">Edit</button>
-            <button mat-raised-button class="me-8 mb-8" color="warn" >Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </mat-card-content>
-</mat-card>
+<div *ngIf="loading">
+  <mat-spinner></mat-spinner>  
+</div>
 
+<div class="col-lg-8">
+  <mat-card class="w-100" *ngIf="isServiceVisible && selectedAppointment && selectedAppointment[0]">
+    <mat-card-content>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Employer</th>
+            <th>Service</th>
+            <th>Date</th>
+            <th>Heure</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let req of selectedAppointment[0].requestedServices; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ req.selectedEmployee.firstName + ' ' + req.selectedEmployee.lastName }}</td>
+            <td>{{ req.serviceId.name }}</td>
+            <td>{{ selectedAppointment[0].appointmentDate | date: 'yyyy-MM-dd' }}</td>
+            <td>{{ selectedAppointment[0].appointmentDate | date: 'HH:mm' }}</td>
+            <td>
+              <button mat-raised-button class="me-8 mb-8" color="primary" (click)="onEdit(selectedAppointment[0])">Edit</button>
+              <button mat-raised-button class="me-8 mb-8" color="warn" >Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>    
+</div>
 
 
 <mat-card class="w-100">
@@ -151,16 +156,25 @@
             }">{{ res.status }}</span>
           </td>
           <td>
-            <button mat-raised-button class="me-8 mb-8" (click)="onAdd(res)">Add</button>
-            <button mat-raised-button class="me-8 mb-8" color="accent" (click)="onService(res._id)">Service</button>
-            <button mat-raised-button class="me-8 mb-8" color="primary" (click)="onEdit(res)">Edit</button>
-            <button mat-raised-button class="me-8 mb-8" color="warn" (click)="onDelete(res._id)" >Delete</button>
-          </td>
+            <button mat-icon-button (click)="onAdd(res)">
+              <mat-icon>add</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" (click)="onService(res._id)">
+              <mat-icon>build</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" (click)="onEdit(res)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="onDelete(res._id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>          
         </tr>
       </tbody>
     </table>
   </mat-card-content>
 </mat-card>
+
 
 <mat-card class="w-100">
     <mat-card-content>

@@ -104,7 +104,7 @@ export class ServicesComponent  {
       commissionPercentage: 0,
       description: '',
     };
-    this.isVisibleFrom = true;
+    this.isVisibleFrom = !this.isVisibleFrom;
   }
 
   closeNewService(){

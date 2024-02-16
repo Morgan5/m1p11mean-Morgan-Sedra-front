@@ -14,6 +14,7 @@ import { AppointmentHistoryComponent } from './components/dashboard-client/dashb
 import { AppointmentSetupComponent } from './components/dashboard-client/dashboard-client-components/appointment-setup/appointment-setup.component';
 import { OnlinePaymentComponent } from './components/dashboard-client/dashboard-client-components/online-payment/online-payment.component';
 import { PreferenceManagementComponent } from './components/dashboard-client/dashboard-client-components/preference-management/preference-management.component';
+import { ClientsComponent } from './components/clients/clients.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
       {path:"reservations", component:ReservationsComponent},
       {path:"services", component:ServicesComponent},
       {path:"employers", component:EmployerComponent},
+      {path:"clients",component:ClientsComponent},
       {path:"tasks",component:TasksComponent},
       {path:"inscription-client",component:InscriptionClientComponent},
       {path:"login-client",component:LoginClientComponent},

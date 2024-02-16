@@ -123,6 +123,11 @@ export class FullComponent {
         menu: "Employer",
       },
       {
+        link: "/clients",
+        icon: "sliders",
+        menu: "Clients",
+      },
+      {
         link: "/tasks",
         icon: "list",
         menu: "Tasks",

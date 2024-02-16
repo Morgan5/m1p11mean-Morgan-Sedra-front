@@ -29,6 +29,7 @@ import { ClientsComponent } from './clients/clients.component';
     FormsModule,
     ServicesComponent,
     EmployerComponent,
+    ClientsComponent,
     ReservationsComponent,
     TasksComponent,
   ],
@@ -37,12 +38,13 @@ import { ClientsComponent } from './clients/clients.component';
     ExpansionComponent,
     ServicesComponent,
     EmployerComponent,
+    ClientsComponent,
     ReservationsComponent,
     TasksComponent
   ],
   declarations: [ 
   
-    InscriptionClientComponent, LoginClientComponent, DashboardClientComponent, AppointmentSetupComponent, AppointmentHistoryComponent, PreferenceManagementComponent, OnlinePaymentComponent, ClientsComponent
+    InscriptionClientComponent, LoginClientComponent, DashboardClientComponent, AppointmentSetupComponent, AppointmentHistoryComponent, PreferenceManagementComponent, OnlinePaymentComponent,
   ]
 })
 export class ComponentsModule { }

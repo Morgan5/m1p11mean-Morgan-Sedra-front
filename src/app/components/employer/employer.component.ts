@@ -48,12 +48,7 @@ export class EmployerComponent {
           console.log('Erreur lors de la modification de l\'employee :',error);
         }
       )
-      this.newEmp = {
-        firstName: '',
-        lastName: '',
-        email:'',
-        password:''
-      }
+      this.newEmp = {firstName: '',lastName: '',email:'',password:''}
       this.editingEmp = null;
       this.isVisibleFrom = false;
     }

@@ -24,6 +24,7 @@ export class ReservationsComponent {
   isFormService:boolean = false;
   isEditEnabled: boolean = false;
   isServiceVisible: boolean = false;
+  loading: boolean = false;
 
   appointments: any[] = [];
   selectedAppointment: any;
@@ -69,9 +70,11 @@ export class ReservationsComponent {
   }
 
   loadAppointment(){
-    this.appointmentService.getFullAppointment().subscribe((appointments)=>{
+    this.appointmentService.getFullAppointment().subscribe(
+      (appointments)=>{
       this.appointments = appointments;
-    })
+      }
+    )
   };
 
   onSubmit(){
@@ -157,9 +160,8 @@ export class ReservationsComponent {
         }
       ]
     }
-    console.log(appoint);
     this.isEditEnabled = false;
-    this.isVisibleFrom = true;
+    this.isVisibleFrom = !this.isVisibleFrom;
   }
 
   onAdd(appoint: any){
@@ -175,7 +177,7 @@ export class ReservationsComponent {
         }
       ]
     }
-    this.isFormService = true;
+    this.isFormService = !this.isFormService;
   }
 
   closeNewServise(){
@@ -183,6 +185,7 @@ export class ReservationsComponent {
   }
   
   onService(appointId: string){
+    this.loading = true;
     this.isServiceVisible = !this.isServiceVisible;
     this.appointmentService.getAppointmentById(appointId).subscribe(
       (response)=>{
@@ -191,12 +194,15 @@ export class ReservationsComponent {
       },
       (error)=>{
         console.log('Erreur lors de la recherche: ',error);
+      },
+      ()=>{
+        this.loading = false
       }
     )
   }
 
   openNewReservation(){
-    this.isVisibleFrom = true;
+    this.isVisibleFrom = !this.isVisibleFrom;
     this.isEditEnabled = true;
     this.newAppoint = {
       clientId: '',

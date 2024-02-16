@@ -14,4 +14,16 @@ export class ClientsService {
     getAllClientsManager(): Observable<any[]> {
         return this.http.get<any[]>(`${this.apiUrl}/manager/all`);
     }
+
+    deleteClient(clientId: string): Observable<any>{
+      return this.http.delete<any>(`${this.apiUrl}/delete/${clientId}`);
+    }
+
+    createClient(client: any): Observable<any>{
+      return this.http.post<any>(`${this.apiUrl}/register`,client);
+    }
+
+    updateClient(clientId: string, updateClientData: any): Observable<any> {
+      return this.http.put<any>(`${this.apiUrl}/update/${clientId}`, updateClientData);
+    }
 }
