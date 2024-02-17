@@ -2,7 +2,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
   
 import { AppModule } from './app/app.module';
 import axios from 'axios';
-import { environment } from './environments/environment.development';
+import { environment } from './environments/environment';
   
   
 axios.defaults.baseURL = environment.apiUrl
