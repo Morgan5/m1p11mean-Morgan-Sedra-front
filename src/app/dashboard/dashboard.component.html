@@ -1,16 +1,56 @@
 <app-sales></app-sales>
 
+<mat-card class="w-100">
+  <mat-card-content>
+    <div cdkDropListGroup class="row">
+      <div class="col-lg-4">
 
-<div>
-  <div class="row">
-    <div class="col-lg-4">
-      <app-activity></app-activity>
+        <div class="example-container">
+          <h2>Pending</h2>
+          <div cdkDropList [cdkDropListData]="appointmentPending" class="example-list" (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let item of appointmentPending" class="example-box" cdkDrag [cdkDragData]="item">
+              <p>{{item.clientId.firstName+' '+item.clientId.lastName}}</p>
+              <p>{{ item.appointmentDate | date: 'yyyy-MM-dd' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+
+        <div class="example-container">
+          <h2>Confirmed</h2>
+          <div cdkDropList [cdkDropListData]="appointmentConfirmed" class="example-list" (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let item of appointmentConfirmed" class="example-box" cdkDrag [cdkDragData]="item">
+              <p>{{item.clientId.firstName+' '+item.clientId.lastName}}</p>
+              <p>{{ item.appointmentDate | date: 'yyyy-MM-dd' }}</p>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+      <div class="col-lg-4">
+        <div class="example-container">
+          <h2>Cancelled</h2>
+          <div cdkDropList [cdkDropListData]="appointmentCancelled" class="example-list" (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let item of appointmentCancelled" class="example-box" cdkDrag [cdkDragData]="item">
+              <p>{{item.clientId.firstName+' '+item.clientId.lastName}}</p>
+              <p>{{ item.appointmentDate | date: 'yyyy-MM-dd' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-lg-8">
-      <app-product></app-product>
-    </div>
+
+  </mat-card-content>
+</mat-card>
+
+<div class="row">
+  <div class="col-lg-4">
+    <app-activity></app-activity>
+  </div>
+  <div class="col-lg-8">
+    <app-product></app-product>
   </div>
 </div>
-
 
 <app-cards></app-cards>
