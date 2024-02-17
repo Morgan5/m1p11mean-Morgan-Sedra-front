@@ -50,7 +50,7 @@ export class FullComponent {
         if(decodedToken.role == 'Manager'){
           this.addManagerMenu();
           // this.addManagerMenu();
-          this.setUser(decodedToken.firstName, decodedToken.lastName, token);
+          this.setUserManager(decodedToken.name, token);
         }
       }
       
@@ -66,6 +66,11 @@ export class FullComponent {
   setUser(firstName: string, lastName: string, token: string): void {
     this.user.firstName = firstName;
     this.user.lastName = lastName;
+    this.user.token = token;
+  }
+
+  setUserManager(firstName: string, token: string): void {
+    this.user.firstName = firstName;
     this.user.token = token;
   }
 
