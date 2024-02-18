@@ -8,8 +8,7 @@ import { ProductComponent } from './dashboard-components/product/product.compone
 import { CardsComponent } from './dashboard-components/cards/cards.component';
 import { FormsModule } from '@angular/forms';
 import { NgApexchartsModule } from 'ng-apexcharts';
-
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -24,7 +23,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     CommonModule,
     DemoFlexyModule,
     FormsModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    DragDropModule
   ],
   exports: [
     DashboardComponent,

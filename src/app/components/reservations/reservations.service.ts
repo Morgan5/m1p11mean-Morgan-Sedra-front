@@ -27,12 +27,28 @@ export class AppointmentService {
     return this.http.put<any>(`${this.apiUrl}/update/${appointmentId}`, updatedData);
     }
 
+    updateAppointmentStatus(appointmentId: string, updatedData: any): Observable<any> {
+      return this.http.put<any>(`${this.apiUrl}/updateStatus/${appointmentId}`, updatedData);
+    }
+
     getAppointments(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/all`);
     }
 
     getFullAppointment(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/full`);
+    }
+
+    getFullAppointmentPending():Observable<any[]> {
+      return this.http.get<any[]>(`${this.apiUrl}/pending`);
+    }
+
+    getFullAppointmentConfirmed():Observable<any[]> {
+      return this.http.get<any[]>(`${this.apiUrl}/confirmed`);
+    }
+
+    getFullAppointmentCancelled():Observable<any[]> {
+      return this.http.get<any[]>(`${this.apiUrl}/cancelled`);
     }
 
     getAppointmentById(appointmentId: string): Observable<any> {
