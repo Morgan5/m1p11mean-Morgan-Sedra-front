@@ -33,27 +33,27 @@ export class FullComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router) { 
+  constructor(private breakpointObserver: BreakpointObserver, private router: Router) {
     const token = sessionStorage.getItem('token');
-    if(token){
+    if (token) {
       const decodedToken: any = jwtDecode(token);
-      if(decodedToken){
+      if (decodedToken) {
         console.log(decodedToken);
-        if(decodedToken.role == 'Client'){
-          this.addClientMenu(); 
+        if (decodedToken.role == 'Client') {
+          this.addClientMenu();
           this.setUser(decodedToken.firstName, decodedToken.lastName, token);
         }
-        if(decodedToken.role == 'Employee'){
+        if (decodedToken.role == 'Employee') {
           //this.addEmployeeMenu(); 
           this.setUser(decodedToken.firstName, decodedToken.lastName, token);
         }
-        if(decodedToken.role == 'Manager'){
+        if (decodedToken.role == 'Manager') {
           this.addManagerMenu();
           // this.addManagerMenu();
           this.setUserManager(decodedToken.name, token);
         }
       }
-      
+
     }
 
   }
@@ -61,7 +61,7 @@ export class FullComponent {
   routerActive: string = "activelink";
 
   sidebarMenu: sidebarMenu[] = [];
-  user: user = {firstName: '', lastName: '', token: ''};
+  user: user = { firstName: '', lastName: '', token: '' };
 
   setUser(firstName: string, lastName: string, token: string): void {
     this.user.firstName = firstName;
@@ -74,7 +74,7 @@ export class FullComponent {
     this.user.token = token;
   }
 
-  logOut(): void{
+  logOut(): void {
     sessionStorage.clear();
     this.router.navigateByUrl('/home');
   }
@@ -89,17 +89,12 @@ export class FullComponent {
       {
         link: "/appointment-setup-client",
         icon: "list",
-        menu: "Prise de rendez-vous",
-      },
-      {
-        link: "/appointment-history-client",
-        icon: "list",
-        menu: "Historique des rendez-vous",
+        menu: "Rendez-vous",
       },
       {
         link: "/preference-management-client",
         icon: "list",
-        menu: "Gestion des préférences",
+        menu: "Préférences",
       }
     );
   }
@@ -139,7 +134,7 @@ export class FullComponent {
       },
     );
   }
-  
-  
+
+
 
 }
