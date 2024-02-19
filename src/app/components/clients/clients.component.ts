@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { ClientsService } from './clients.service';
 import { DemoFlexyModule } from 'src/app/demo-flexy-module';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FeatherModule } from 'angular-feather';
+import { ClientFilterPipe } from './client.filter.pipe';
+
 
 @Component({
   selector: 'app-clients',
@@ -19,6 +21,7 @@ export class ClientsComponent {
   isVisibleFormEdit: boolean = false;
   errorMessage: string = '';
 
+  searchTerm: string = '';
   clients: any[] = [];
   newClient = {
     firstName: '',
@@ -39,10 +42,30 @@ export class ClientsComponent {
   }
   editingClient: any = null;
 
-  constructor(private clientService: ClientsService){}
+  constructor(private clientService: ClientsService, private filterClient: ClientFilterPipe){}
   
   ngOnInit(){
     this.loadClient();
+  }
+
+  loadClient(){
+    this.clientService.getAllClientsManager().subscribe(
+      (response)=>{
+        this.clients = response;
+      }
+    )
+  }
+
+  filterClients(){
+    if (this.searchTerm === '') {
+      this.loadClient();
+    } else {
+      this.clients = this.filterClient.transform(this.clients, this.searchTerm);
+    }
+  }
+
+  onSearchChange() {
+    this.filterClients();
   }
 
   onSumbit(){
@@ -97,13 +120,6 @@ export class ClientsComponent {
     this.trueClient = {firstName: '',lastName: '',email:'',contact:'',role:'',password:''};
   }
 
-  loadClient(){
-    this.clientService.getAllClientsManager().subscribe(
-      (response)=>{
-        this.clients = response;
-      }
-    )
-  }
 
   onDelete(clientId: string){
     this.clientService.deleteClient(clientId).subscribe(

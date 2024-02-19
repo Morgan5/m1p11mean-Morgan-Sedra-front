@@ -13,11 +13,17 @@ import { DemoFlexyModule } from './demo-flexy-module'
 // Modules
 import { DashboardModule } from './dashboard/dashboard.module';
 import { ComponentsModule } from './components/components.module';
+import { ClientFilterPipe } from './components/clients/client.filter.pipe';
+import { EmployeeFilterPipe } from './components/employer/employer.filter.pipe';
+import { ReservationFilterPipe } from './components/reservations/reservations.filter.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     FullComponent,
+    ClientFilterPipe,
+    EmployeeFilterPipe,
+    ReservationFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -27,9 +33,13 @@ import { ComponentsModule } from './components/components.module';
     DemoFlexyModule,
     DashboardModule,
     ComponentsModule,
-    FormsModule
+    FormsModule,
   ],
-  providers: [],
+  providers: [
+    ClientFilterPipe,
+    EmployeeFilterPipe,
+    ReservationFilterPipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

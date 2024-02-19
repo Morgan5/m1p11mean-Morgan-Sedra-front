@@ -1,12 +1,12 @@
 <mat-card class="no-shadow">
-    <mat-card-content>
-      <mat-toolbar>
-        <h3>Client</h3>
-        <span class="example-spacer"></span>
-        <button mat-raised-button class="me-8 mb-8 ml-auto" color="primary" (click)="openNewClient()" >New</button>
-      </mat-toolbar>
-    </mat-card-content>
-  </mat-card>
+  <mat-card-content>
+    <mat-toolbar>
+      <h3>Client</h3>
+      <button mat-raised-button class="me-8 mb-8 ml-auto" color="primary" (click)="openNewClient()">New</button>
+    </mat-toolbar>
+  </mat-card-content>
+</mat-card>
+
 
   <div class="card" [ngClass]="{'visible': isVisibleFrom, 'hidden': !isVisibleFrom}" >
     <div class="card-body">
@@ -86,30 +86,39 @@
 
   <mat-card class="w-100">
     <mat-card-content>
+      <div class="row">
+        <mat-form-field>
+          <input matInput placeholder="Search" [(ngModel)]="searchTerm" (input)="onSearchChange()">
+        </mat-form-field>
+      </div>
+      <div class="row">
         <div class="table-responsive">
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>First name</th>
-                    <th>Last name</th>
-                    <th>Email</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of clients;let i = index ">
-                    <td>{{ i + 1 }}</td>
-                    <td>{{ item.firstName }}</td>
-                    <td>{{ item.lastName }}</td>
-                    <td>{{ item.email }}</td>
-                    <td>
-                      <button mat-raised-button class="me-8 mb-8" color="primary" (click)="onEdit(item)" >Edit</button>
-                      <button mat-raised-button class="me-8 mb-8" color="warn" (click)="onDelete(item._id)" >Delete</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+          <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>First name</th>
+                  <th>Last name</th>
+                  <th>Email</th>
+                  <th>Contact</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of clients;let i = index ">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ item.firstName }}</td>
+                  <td>{{ item.lastName }}</td>
+                  <td>{{ item.email }}</td>
+                  <td>{{ item.contact }}</td>
+                  <td>
+                    <button mat-raised-button class="me-8 mb-8" color="primary" (click)="onEdit(item)" >Edit</button>
+                    <button mat-raised-button class="me-8 mb-8" color="warn" (click)="onDelete(item._id)" >Delete</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
         </div>
+      </div>
     </mat-card-content>
 </mat-card>

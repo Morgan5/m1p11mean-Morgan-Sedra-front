@@ -30,4 +30,8 @@ export class EmployerService {
     updateEmployee(empId: string,employee: any): Observable<any>{
         return this.http.put<any>(`${this.apiUrl}/update/${empId}`, employee);
     }
+
+    createTask(empId: string,newTask: any): Observable<any>{
+        return this.http.post<any>(`${this.apiUrl}/tasksCompleted/${empId}`,newTask);
+    }
 }

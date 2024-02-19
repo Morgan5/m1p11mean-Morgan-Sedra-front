@@ -15,6 +15,10 @@ export class ServicesService {
     return this.http.get<any[]>(`${this.apiUrl}/all`);
   }
 
+  getServiceById(serviceId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${serviceId}`);
+  }
+
   createService(newService: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/create`, newService);
   }

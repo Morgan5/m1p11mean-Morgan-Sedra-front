@@ -6,6 +6,7 @@ import { EmployerService } from './employer.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FeatherModule } from 'angular-feather';
+import { EmployeeFilterPipe } from './employer.filter.pipe';
 
 interface activity {
   time: string;
@@ -27,16 +28,19 @@ export class EmployerComponent {
   isFullScreen: boolean = false;
   errorMessage: string = '';
   selectedEmp: any = null;
+  searchTerm: string = '';
   newEmp = {
     firstName: '',
     lastName: '',
     email:'',
+    role:'Employee',
+    contact:'',
     confirmPassword:'',
     password:''
   }
   editingEmp: any = null;
 
-  constructor(private employeeService: EmployerService){}
+  constructor(private employeeService: EmployerService,private employeeFilter: EmployeeFilterPipe){}
 
   ngOnInit():void{
     this.loadEmployee();
@@ -49,12 +53,25 @@ export class EmployerComponent {
     });
   }
 
+  filterEmployees(){
+    if(this.searchTerm === ''){
+      this.loadEmployee();
+    }else{
+      this.employees = this.employeeFilter.transform(this.employees,this.searchTerm);
+    }
+  }
+
+  onSearchChange(){
+    this.filterEmployees();
+  }
+
   onSumbit(){
     if(this.editingEmp){
       const trueEmp ={
         firstName: this.newEmp.firstName,
         lastName: this.newEmp.lastName,
         email:this.newEmp.email,
+        contact:this.newEmp.contact,
         password:this.newEmp.password
       }
       this.employeeService.updateEmployee(this.editingEmp._id,trueEmp).subscribe(
@@ -66,7 +83,7 @@ export class EmployerComponent {
           console.log('Erreur lors de la modification de l\'employee :',error);
         }
       )
-      this.newEmp = {firstName: '',lastName: '',email:'',confirmPassword:'',password:''}
+      this.newEmp = {firstName: '',lastName: '',email:'',confirmPassword:'',role:'Employee',contact:'',password:''}
       this.editingEmp = null;
       this.isVisibleFrom = false;
       this.errorMessage = '';
@@ -127,6 +144,8 @@ export class EmployerComponent {
       firstName: '',
       lastName: '',
       email:'',
+      role:'Employee',
+      contact:'',
       confirmPassword:'',
       password:''
     }

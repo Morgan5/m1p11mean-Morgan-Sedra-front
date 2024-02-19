@@ -9,6 +9,7 @@ import { ClientsService } from '../clients/clients.service';
 import { EmployerService } from '../employer/employer.service';
 import { ServicesService } from '../services/services.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ReservationFilterPipe } from './reservations.filter.pipe';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class ReservationsComponent {
   loading: boolean = false;
 
   appointments: any[] = [];
+  searchTerm: string = '';
   selectedAppointment: any;
   clients: any[] = [];
   employees: any[] = [];
@@ -52,7 +54,7 @@ export class ReservationsComponent {
   };  
   editingAppoint: any = null;
 
-  constructor(private appointmentService: AppointmentService,private clientService: ClientsService,private employeeService: EmployerService,private serviceService: ServicesService) {
+  constructor(private appointmentService: AppointmentService,private clientService: ClientsService,private employeeService: EmployerService,private serviceService: ServicesService,private reservationFilter: ReservationFilterPipe) {
     this.generateCalendar();
   }
 
@@ -76,6 +78,18 @@ export class ReservationsComponent {
       }
     )
   };
+
+  filterReservations(){
+    if(this.searchTerm === ''){
+      this.loadAppointment();
+    }else{
+      this.appointments = this.reservationFilter.transform(this.appointments,this.searchTerm);
+    }
+  }
+
+  onSearchChange(){
+    this.filterReservations();
+  }
 
   onSubmit(){
     if(this.editingAppoint){

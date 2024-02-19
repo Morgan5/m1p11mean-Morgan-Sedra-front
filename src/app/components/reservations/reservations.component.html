@@ -128,49 +128,56 @@
 
 <mat-card class="w-100">
   <mat-card-content>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Client</th>
-          <th>Employer</th>
-          <th>Service</th>
-          <th>Date</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let res of appointments;let i = index ">
-          <td>{{ i + 1 }}</td>
-          <td>{{ res.clientId.firstName + ' ' + res.clientId.lastName }}</td>
-          <td>{{ res.requestedServices[0].selectedEmployee.firstName + ' ' + res.requestedServices[0].selectedEmployee.lastName }}</td>
-          <td>{{ res.requestedServices[0].serviceId.name }}</td>
-          <td>{{ res.appointmentDate | date: 'yyyy-MM-dd' }}</td>
-          <td>
-            <span class="badge rounded-pill" [ngClass]="{
-              'badge-success': res.status === 'Confirmed',
-              'badge-warning': res.status === 'Pending',
-              'badge-danger': res.status === 'Cancelled'
-            }">{{ res.status }}</span>
-          </td>
-          <td>
-            <button mat-icon-button (click)="onAdd(res)">
-              <mat-icon>add</mat-icon>
-            </button>
-            <button mat-icon-button color="accent" (click)="onService(res._id)">
-              <mat-icon>build</mat-icon>
-            </button>
-            <button mat-icon-button color="primary" (click)="onEdit(res)">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button color="warn" (click)="onDelete(res._id)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </td>          
-        </tr>
-      </tbody>
-    </table>
+    <div class="row">
+      <mat-form-field>
+        <input matInput placeholder="Search" [(ngModel)]="searchTerm" (input)="onSearchChange()">
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Client</th>
+            <th>Employer</th>
+            <th>Service</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let res of appointments;let i = index ">
+            <td>{{ i + 1 }}</td>
+            <td>{{ res.clientId.firstName + ' ' + res.clientId.lastName }}</td>
+            <td>{{ res.requestedServices[0].selectedEmployee.firstName + ' ' + res.requestedServices[0].selectedEmployee.lastName }}</td>
+            <td>{{ res.requestedServices[0].serviceId.name }}</td>
+            <td>{{ res.appointmentDate | date: 'yyyy-MM-dd' }}</td>
+            <td>
+              <span class="badge rounded-pill" [ngClass]="{
+                'badge-success': res.status === 'Confirmed',
+                'badge-warning': res.status === 'Pending',
+                'badge-danger': res.status === 'Cancelled'
+              }">{{ res.status }}</span>
+            </td>
+            <td>
+              <button mat-icon-button (click)="onAdd(res)">
+                <mat-icon>add</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" (click)="onService(res._id)">
+                <mat-icon>build</mat-icon>
+              </button>
+              <button mat-icon-button color="primary" (click)="onEdit(res)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="onDelete(res._id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>          
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </mat-card-content>
 </mat-card>
 

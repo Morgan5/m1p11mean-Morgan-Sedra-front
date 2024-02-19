@@ -127,11 +127,11 @@ export class FullComponent {
         icon: "sliders",
         menu: "Clients",
       },
-      {
-        link: "/tasks",
-        icon: "list",
-        menu: "Tasks",
-      },
+      // {
+      //   link: "/tasks",
+      //   icon: "list",
+      //   menu: "Tasks",
+      // },
     );
   }
 

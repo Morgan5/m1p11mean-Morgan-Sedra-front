@@ -38,7 +38,7 @@ export class LoginEmployeeManagerComponent {
       } else {
         let notFoundManager = false;
         let wrongPwdManager = false;
-        if(data.msg == 'User not found') notFoundManager = true;
+        if(data.msg == 'Manager not found') notFoundManager = true;
         if(data.msg == 'Wrong password') wrongPwdManager = true;
 
         // parcours employee
