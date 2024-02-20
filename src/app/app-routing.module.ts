@@ -16,6 +16,7 @@ import { OnlinePaymentComponent } from './components/dashboard-client/dashboard-
 import { PreferenceManagementComponent } from './components/dashboard-client/dashboard-client-components/preference-management/preference-management.component';
 import { ClientsComponent } from './components/clients/clients.component';
 import { LoginEmployeeManagerComponent } from './components/login-employee-manager/login-employee-manager.component';
+import { SpecialOfferComponent } from './components/special-offer/special-offer.component';
 
 const routes: Routes = [
   {
@@ -36,7 +37,8 @@ const routes: Routes = [
       {path:"appointment-setup-client",component:AppointmentSetupComponent},
       {path:"online-payment-client",component:OnlinePaymentComponent},
       {path:"preference-management-client",component:PreferenceManagementComponent},
-      {path:"login-employee-manager",component:LoginEmployeeManagerComponent}
+      {path:"login-employee-manager",component:LoginEmployeeManagerComponent},
+      {path:"special-offer", component:SpecialOfferComponent}
     ]
   },
 

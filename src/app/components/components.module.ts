@@ -19,6 +19,7 @@ import { PreferenceManagementComponent } from './dashboard-client/dashboard-clie
 import { OnlinePaymentComponent } from './dashboard-client/dashboard-client-components/online-payment/online-payment.component';
 import { ClientsComponent } from './clients/clients.component';
 import { LoginEmployeeManagerComponent } from './login-employee-manager/login-employee-manager.component';
+import { SpecialOfferComponent } from './special-offer/special-offer.component';
 
 @NgModule({
   imports: [
@@ -45,7 +46,7 @@ import { LoginEmployeeManagerComponent } from './login-employee-manager/login-em
   ],
   declarations: [ 
   
-    InscriptionClientComponent, LoginClientComponent, DashboardClientComponent, AppointmentSetupComponent, AppointmentHistoryComponent, PreferenceManagementComponent, OnlinePaymentComponent, LoginEmployeeManagerComponent,
+    InscriptionClientComponent, LoginClientComponent, DashboardClientComponent, AppointmentSetupComponent, AppointmentHistoryComponent, PreferenceManagementComponent, OnlinePaymentComponent, LoginEmployeeManagerComponent, SpecialOfferComponent,
   ]
 })
 export class ComponentsModule { }

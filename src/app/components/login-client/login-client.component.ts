@@ -17,9 +17,14 @@ export class LoginClientComponent implements OnInit {
   constructor(public userAuthService: UserAuthService, private router: Router) {}
  
   ngOnInit(): void {
-    if(sessionStorage.getItem('token') != "" && sessionStorage.getItem('token') != null && sessionStorage.getItem('token') != undefined){
-      this.router.navigateByUrl('/dashboard-client');
+    if(sessionStorage.getItem('logout')){
+      location.reload();
+      sessionStorage.clear();
     }
+
+    /*if(sessionStorage.getItem('token') != "" && sessionStorage.getItem('token') != null && sessionStorage.getItem('token') != undefined){
+      this.router.navigateByUrl('/dashboard-client');
+    }*/
   }
  
   loginAction() {
