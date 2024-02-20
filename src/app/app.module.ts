@@ -16,6 +16,7 @@ import { ComponentsModule } from './components/components.module';
 import { ClientFilterPipe } from './components/clients/client.filter.pipe';
 import { EmployeeFilterPipe } from './components/employer/employer.filter.pipe';
 import { ReservationFilterPipe } from './components/reservations/reservations.filter.pipe';
+import { ReservationEmployeeFilterPipe } from './components/reservation-employee/reservation-employee.filter.pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ReservationFilterPipe } from './components/reservations/reservations.fi
     FullComponent,
     ClientFilterPipe,
     EmployeeFilterPipe,
-    ReservationFilterPipe
+    ReservationFilterPipe,
+    ReservationEmployeeFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,8 @@ import { ReservationFilterPipe } from './components/reservations/reservations.fi
   providers: [
     ClientFilterPipe,
     EmployeeFilterPipe,
-    ReservationFilterPipe
+    ReservationFilterPipe,
+    ReservationEmployeeFilterPipe
   ],
   bootstrap: [AppComponent]
 })

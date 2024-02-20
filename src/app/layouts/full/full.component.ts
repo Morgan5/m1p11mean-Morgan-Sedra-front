@@ -45,6 +45,7 @@ export class FullComponent {
           this.setUser(decodedToken.firstName, decodedToken.lastName, token, decodedToken.role);
         }
         if (decodedToken.role == 'Employee') {
+          this.addEmployeeMenu(); 
           //this.addEmployeeMenu(); 
           this.setUser(decodedToken.firstName, decodedToken.lastName, token, decodedToken.role);
         }
@@ -108,7 +109,26 @@ export class FullComponent {
     );
   }
 
-  // ito le anlah taloha iny, atsoina fotsiny ao am le constructeur
+  addEmployeeMenu(): void{
+    this.sidebarMenu.push(
+      {
+        link: "/dashboard-employee",
+        icon: "home",
+        menu: "Dashboard",
+      },
+      {
+        link: "/reservation-employee",
+        icon: "calendar",
+        menu: "Reservations",
+      },
+      {
+        link: "/employers",
+        icon: "user",
+        menu: "My account",
+      },
+    )
+  }
+
   addManagerMenu(): void {
     this.sidebarMenu.push(
       {
@@ -118,7 +138,7 @@ export class FullComponent {
       },
       {
         link: "/reservations",
-        icon: "home",
+        icon: "calendar",
         menu: "Reservations",
       },
       {
@@ -128,14 +148,14 @@ export class FullComponent {
       },
       {
         link: "/employers",
-        icon: "sliders",
+        icon: "users",
         menu: "Employer",
       },
       {
         link: "/clients",
-        icon: "sliders",
+        icon: "user",
         menu: "Clients",
-      },
+      },      
       {
         link: "/special-offer",
         icon: "sliders",
