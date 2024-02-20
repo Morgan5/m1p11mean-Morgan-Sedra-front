@@ -17,6 +17,11 @@ export class LoginEmployeeManagerComponent {
   constructor(public employeeMangerService: EmployeeManagerService, private router: Router) {}
  
   ngOnInit(): void {
+    if(sessionStorage.getItem('logout')){
+      location.reload();
+      sessionStorage.clear();
+    }
+    
     /*if(sessionStorage.getItem('token') != "" && sessionStorage.getItem('token') != null && sessionStorage.getItem('token') != undefined){
       this.router.navigateByUrl('/dashboard-client');
     }*/

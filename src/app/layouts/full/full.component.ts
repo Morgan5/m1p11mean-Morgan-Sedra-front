@@ -16,6 +16,7 @@ interface user {
   firstName: string;
   lastName: string;
   token: string;
+  role: string;
 }
 
 @Component({
@@ -41,15 +42,17 @@ export class FullComponent {
         console.log(decodedToken);
         if (decodedToken.role == 'Client') {
           this.addClientMenu();
-          this.setUser(decodedToken.firstName, decodedToken.lastName, token);
+          this.setUser(decodedToken.firstName, decodedToken.lastName, token, decodedToken.role);
         }
         if (decodedToken.role == 'Employee') {
           this.addEmployeeMenu(); 
-          this.setUser(decodedToken.firstName, decodedToken.lastName, token);
+          //this.addEmployeeMenu(); 
+          this.setUser(decodedToken.firstName, decodedToken.lastName, token, decodedToken.role);
         }
         if (decodedToken.role == 'Manager') {
           this.addManagerMenu();
-          this.setUserManager(decodedToken.name, token);
+          // this.addManagerMenu();
+          this.setUserManager(decodedToken.name, token, decodedToken.role);
         }
       }
 
@@ -60,22 +63,30 @@ export class FullComponent {
   routerActive: string = "activelink";
 
   sidebarMenu: sidebarMenu[] = [];
-  user: user = { firstName: '', lastName: '', token: '' };
+  user: user = { firstName: '', lastName: '', token: '', role: '' };
 
-  setUser(firstName: string, lastName: string, token: string): void {
+  setUser(firstName: string, lastName: string, token: string, role: string): void {
     this.user.firstName = firstName;
     this.user.lastName = lastName;
     this.user.token = token;
+    this.user.role = role;
   }
 
-  setUserManager(firstName: string, token: string): void {
+  setUserManager(firstName: string, token: string, role: string): void {
     this.user.firstName = firstName;
     this.user.token = token;
+    this.user.role = role;
   }
 
   logOut(): void {
     sessionStorage.clear();
-    this.router.navigateByUrl('/home');
+    sessionStorage.setItem('logout', 'true');
+    if(this.user.role == "Client"){
+      this.router.navigateByUrl('/login-client');
+    } else {
+      this.router.navigateByUrl('/login-employee-manager');
+    }
+    
   }
 
   addClientMenu(): void {
@@ -144,7 +155,12 @@ export class FullComponent {
         link: "/clients",
         icon: "user",
         menu: "Clients",
-      }      
+      },      
+      {
+        link: "/special-offer",
+        icon: "sliders",
+        menu: "Offres spéciales",
+      },
       // {
       //   link: "/tasks",
       //   icon: "list",

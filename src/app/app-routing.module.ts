@@ -18,6 +18,7 @@ import { ClientsComponent } from './components/clients/clients.component';
 import { LoginEmployeeManagerComponent } from './components/login-employee-manager/login-employee-manager.component';
 import { DashboardEmployeeComponent } from './components/dashboard-employee/dashboard-employee.component';
 import { ReservationEmployeeComponent } from './components/reservation-employee/reservation-employee.component';
+import { SpecialOfferComponent } from './components/special-offer/special-offer.component';
 
 const routes: Routes = [
   {
@@ -40,7 +41,9 @@ const routes: Routes = [
       {path:"preference-management-client",component:PreferenceManagementComponent},
       {path:"login-employee-manager",component:LoginEmployeeManagerComponent},
       {path:"dashboard-employee",component:DashboardEmployeeComponent},
-      {path:"reservation-employee",component:ReservationEmployeeComponent}
+      {path:"reservation-employee",component:ReservationEmployeeComponent},
+      {path:"login-employee-manager",component:LoginEmployeeManagerComponent},
+      {path:"special-offer", component:SpecialOfferComponent}
     ]
   },
 
