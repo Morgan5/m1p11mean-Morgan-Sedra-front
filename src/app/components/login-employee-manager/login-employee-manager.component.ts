@@ -46,7 +46,7 @@ export class LoginEmployeeManagerComponent {
         .then(({data}) => {
           if(data.success){
             sessionStorage.setItem('token', data.token);
-            this.router.navigateByUrl('/home');
+            this.router.navigateByUrl('/dashboard-employee');
           } else {
             if(data.msg == 'Employee not found' || notFoundManager) this.message = "L'utilisateur n'existe pas";
             if(data.msg == 'Wrong password'|| wrongPwdManager) this.message = "Mot de passe incorrect";

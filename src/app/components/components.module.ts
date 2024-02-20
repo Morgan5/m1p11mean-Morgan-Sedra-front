@@ -19,6 +19,8 @@ import { PreferenceManagementComponent } from './dashboard-client/dashboard-clie
 import { OnlinePaymentComponent } from './dashboard-client/dashboard-client-components/online-payment/online-payment.component';
 import { ClientsComponent } from './clients/clients.component';
 import { LoginEmployeeManagerComponent } from './login-employee-manager/login-employee-manager.component';
+import { DashboardEmployeeComponent } from './dashboard-employee/dashboard-employee.component';
+import { ReservationEmployeeComponent } from './reservation-employee/reservation-employee.component';
 
 @NgModule({
   imports: [
@@ -33,6 +35,7 @@ import { LoginEmployeeManagerComponent } from './login-employee-manager/login-em
     ClientsComponent,
     ReservationsComponent,
     TasksComponent,
+    ReservationEmployeeComponent
   ],
   exports: [
     MenuComponent,
@@ -41,11 +44,21 @@ import { LoginEmployeeManagerComponent } from './login-employee-manager/login-em
     EmployerComponent,
     ClientsComponent,
     ReservationsComponent,
-    TasksComponent
+    TasksComponent,
+    ReservationEmployeeComponent
   ],
   declarations: [ 
   
-    InscriptionClientComponent, LoginClientComponent, DashboardClientComponent, AppointmentSetupComponent, AppointmentHistoryComponent, PreferenceManagementComponent, OnlinePaymentComponent, LoginEmployeeManagerComponent,
+    InscriptionClientComponent, 
+    LoginClientComponent,
+    DashboardClientComponent,
+    AppointmentSetupComponent,
+    AppointmentHistoryComponent,
+    PreferenceManagementComponent, 
+    OnlinePaymentComponent, 
+    LoginEmployeeManagerComponent, 
+    DashboardEmployeeComponent, 
+
   ]
 })
 export class ComponentsModule { }
