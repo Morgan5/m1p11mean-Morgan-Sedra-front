@@ -60,7 +60,7 @@ export class EmployerComponent {
       this.employees = this.employeeFilter.transform(this.employees,this.searchTerm);
     }
   }
-
+  
   onSearchChange(){
     this.filterEmployees();
   }

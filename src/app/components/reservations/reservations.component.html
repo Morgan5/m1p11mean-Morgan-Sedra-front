@@ -150,8 +150,20 @@
           <tr *ngFor="let res of appointments;let i = index ">
             <td>{{ i + 1 }}</td>
             <td>{{ res.clientId.firstName + ' ' + res.clientId.lastName }}</td>
-            <td>{{ res.requestedServices[0].selectedEmployee.firstName + ' ' + res.requestedServices[0].selectedEmployee.lastName }}</td>
-            <td>{{ res.requestedServices[0].serviceId.name }}</td>
+            <td>
+              <ng-container *ngIf="res.requestedServices && res.requestedServices.length > 0">
+                <div *ngFor="let service of res.requestedServices">
+                  {{ service.selectedEmployee.firstName + ' ' + service.selectedEmployee.lastName }}
+                </div>
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="res.requestedServices && res.requestedServices.length > 0">
+                <div *ngFor="let service of res.requestedServices">
+                  {{ service.serviceId.name }}
+                </div>
+              </ng-container>
+            </td>
             <td>{{ res.appointmentDate | date: 'yyyy-MM-dd' }}</td>
             <td>
               <span class="badge rounded-pill" [ngClass]="{

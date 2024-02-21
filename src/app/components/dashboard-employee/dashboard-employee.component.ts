@@ -28,8 +28,16 @@ export class DashboardEmployeeComponent {
   }
 
   ngOnInit() {
+    this.refreshPageOnce();
     this.initializeChart();
     this.loadEmployee();
+  }
+
+  refreshPageOnce(){
+    if (!sessionStorage.getItem('pageRefreshed')) {
+      sessionStorage.setItem('pageRefreshed', 'true');
+      location.reload();
+    }
   }
 
   loadEmployee(){

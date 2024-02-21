@@ -10,6 +10,11 @@
 
   <mat-card class="w-100">
     <mat-card-content>
+      <div class="alert {{ alerts.border }} {{ alerts.color }} background-none d-flex fs-14 align-items-center rounded mb-16"
+      role="alert" *ngIf="alerts.message != ''">
+      <i-feather name="{{ alerts.icon }}" class="{{ alerts.iconColor }} feather-base me-12"></i-feather>
+      {{ alerts.message }}
+    </div>
       <div class="row">
         <mat-form-field>
           <input matInput placeholder="Search" [(ngModel)]="searchTerm" (input)="onSearchChange()">
@@ -29,11 +34,23 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let res of appointments;let i = index ">
+            <tr *ngFor="let res of appointments; let i = index ">
               <td>{{ i + 1 }}</td>
               <td>{{ res.clientId.firstName + ' ' + res.clientId.lastName }}</td>
-              <td>{{ res.requestedServices[0].selectedEmployee.firstName + ' ' + res.requestedServices[0].selectedEmployee.lastName }}</td>
-              <td>{{ res.requestedServices[0].serviceId.name }}</td>
+              <td>
+                <ng-container *ngIf="res.requestedServices && res.requestedServices.length > 0">
+                  <div *ngFor="let service of res.requestedServices">
+                    {{ service.selectedEmployee.firstName + ' ' + service.selectedEmployee.lastName }}
+                  </div>
+                </ng-container>
+              </td>
+              <td>
+                <ng-container *ngIf="res.requestedServices && res.requestedServices.length > 0">
+                  <div *ngFor="let service of res.requestedServices">
+                    {{ service.serviceId.name }}
+                  </div>
+                </ng-container>
+              </td>
               <td>{{ res.appointmentDate | date: 'yyyy-MM-dd' }}</td>
               <td>
                 <span class="badge rounded-pill" [ngClass]="{
@@ -43,14 +60,12 @@
                 }">{{ res.status }}</span>
               </td>
               <td>
-                <button mat-icon-button >
-                  <mat-icon>add</mat-icon>
-                </button>
-                <button mat-icon-button color="accent" >
-                  <mat-icon>build</mat-icon>
-                </button>
+                <button mat-raised-button class="me-8 mb-8" color="primary" (click)="onDone(res)">
+                  Done
+                </button>                
               </td>          
             </tr>
+            
           </tbody>
         </table>
       </div>
