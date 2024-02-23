@@ -142,6 +142,7 @@
             <th>Employer</th>
             <th>Service</th>
             <th>Date</th>
+            <th>Heure</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -164,7 +165,8 @@
                 </div>
               </ng-container>
             </td>
-            <td>{{ res.appointmentDate | date: 'yyyy-MM-dd' }}</td>
+            <td [style.color]="isDatePassed(res.appointmentDate) ? 'red' : 'inherit'">{{ res.appointmentDate | date: 'yyyy-MM-dd' }}</td>
+            <td>{{ res.appointmentDate | date: 'HH:mm' }}</td>
             <td>
               <span class="badge rounded-pill" [ngClass]="{
                 'badge-success': res.status === 'Confirmed',

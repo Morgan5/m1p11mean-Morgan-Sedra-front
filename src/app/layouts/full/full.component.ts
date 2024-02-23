@@ -122,7 +122,7 @@ export class FullComponent {
         menu: "Reservations",
       },
       {
-        link: "/employers",
+        link: "/profile-employee",
         icon: "user",
         menu: "My account",
       },

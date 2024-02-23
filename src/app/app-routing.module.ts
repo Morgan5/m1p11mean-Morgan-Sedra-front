@@ -19,6 +19,7 @@ import { LoginEmployeeManagerComponent } from './components/login-employee-manag
 import { DashboardEmployeeComponent } from './components/dashboard-employee/dashboard-employee.component';
 import { ReservationEmployeeComponent } from './components/reservation-employee/reservation-employee.component';
 import { SpecialOfferComponent } from './components/special-offer/special-offer.component';
+import { ProfileEmployeeComponent } from './components/profile-employee/profile-employee.component';
 
 const routes: Routes = [
   {
@@ -43,7 +44,8 @@ const routes: Routes = [
       {path:"dashboard-employee",component:DashboardEmployeeComponent},
       {path:"reservation-employee",component:ReservationEmployeeComponent},
       {path:"login-employee-manager",component:LoginEmployeeManagerComponent},
-      {path:"special-offer", component:SpecialOfferComponent}
+      {path:"special-offer", component:SpecialOfferComponent},
+      {path:"profile-employee",component:ProfileEmployeeComponent}
     ]
   },
 

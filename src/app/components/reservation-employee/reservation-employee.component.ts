@@ -50,6 +50,9 @@ export class ReservationEmployeeComponent {
       (response)=>{
         this.appointments = response;
         console.log(response);
+        this.appointments.sort((a, b) => {
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        });
       },
       (error)=>{
         console.log('Erreur lors de l\'importation: ',error);
@@ -139,5 +142,13 @@ export class ReservationEmployeeComponent {
       }
     }
   }
+
+  isDatePassed(appointmentDate: string): boolean {
+    const today = new Date();
+    const dateToCompare = new Date(appointmentDate);
+  
+    return dateToCompare < today;
+  }
+  
 
 }

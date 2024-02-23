@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReservationFilterPipe } from './reservations.filter.pipe';
 
 
-@Component({
+@Component({  
   selector: 'app-reservations',
   standalone: true,
   imports: [DemoFlexyModule,CommonModule,MatTableModule,FormsModule,MatInputModule,NgClass,HttpClientModule],
@@ -75,6 +75,9 @@ export class ReservationsComponent {
     this.appointmentService.getFullAppointment().subscribe(
       (appointments)=>{
       this.appointments = appointments;
+      this.appointments.sort((a, b) => {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      });
       }
     )
   };
@@ -234,6 +237,14 @@ export class ReservationsComponent {
   closeNewReservation(){
     this.isVisibleFrom = false;
   }
+
+  isDatePassed(appointmentDate: string): boolean {
+    const today = new Date();
+    const dateToCompare = new Date(appointmentDate);
+  
+    return dateToCompare < today;
+  }
+  
 
   generateCalendar() {
     this.calendar = [

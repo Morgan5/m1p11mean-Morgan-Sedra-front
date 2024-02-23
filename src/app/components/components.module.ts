@@ -22,6 +22,7 @@ import { LoginEmployeeManagerComponent } from './login-employee-manager/login-em
 import { DashboardEmployeeComponent } from './dashboard-employee/dashboard-employee.component';
 import { ReservationEmployeeComponent } from './reservation-employee/reservation-employee.component';
 import { SpecialOfferComponent } from './special-offer/special-offer.component';
+import { ProfileEmployeeComponent } from './profile-employee/profile-employee.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { SpecialOfferComponent } from './special-offer/special-offer.component';
     ClientsComponent,
     ReservationsComponent,
     TasksComponent,
-    ReservationEmployeeComponent
+    ReservationEmployeeComponent,
+    ProfileEmployeeComponent
   ],
   exports: [
     MenuComponent,
@@ -46,7 +48,8 @@ import { SpecialOfferComponent } from './special-offer/special-offer.component';
     ClientsComponent,
     ReservationsComponent,
     TasksComponent,
-    ReservationEmployeeComponent
+    ReservationEmployeeComponent,
+    ProfileEmployeeComponent
   ],
   declarations: [ 
   
@@ -60,7 +63,15 @@ import { SpecialOfferComponent } from './special-offer/special-offer.component';
     LoginEmployeeManagerComponent, 
     DashboardEmployeeComponent, 
 
-    InscriptionClientComponent, LoginClientComponent, DashboardClientComponent, AppointmentSetupComponent, AppointmentHistoryComponent, PreferenceManagementComponent, OnlinePaymentComponent, LoginEmployeeManagerComponent, SpecialOfferComponent,
+    InscriptionClientComponent, 
+    LoginClientComponent, 
+    DashboardClientComponent, 
+    AppointmentSetupComponent, 
+    AppointmentHistoryComponent, 
+    PreferenceManagementComponent, 
+    OnlinePaymentComponent, 
+    LoginEmployeeManagerComponent, 
+    SpecialOfferComponent, 
   ]
 })
 export class ComponentsModule { }
