@@ -19,6 +19,10 @@ export class AppointmentService {
     return this.http.delete<any>(`${this.apiUrl}/delete/${appointmentId}`);
   }
 
+  deleteRequestedService(appointId: string,requestedServiceId: string){
+    return this.http.delete<any>(`${this.apiUrl}/delete/appointments/${appointId}/services/${requestedServiceId}`);
+  }
+
   createRequestedServices(appointmentId: string, requestedServicesData: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/requestedService/${appointmentId}`, requestedServicesData);
   }

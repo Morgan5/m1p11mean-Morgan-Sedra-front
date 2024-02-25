@@ -1,4 +1,4 @@
-import { CommonModule, NgClass } from '@angular/common';
+import { CommonModule, NgClass, NgIf, NgIfContext } from '@angular/common';
 import { Component } from '@angular/core';
 import { DemoFlexyModule } from 'src/app/demo-flexy-module';
 import { ServicesService } from './services.service';
@@ -20,6 +20,7 @@ interface cards {
 
 export class ServicesComponent  {
   isVisibleFrom:boolean = false;
+  loading: boolean = false;
   services: any[] = [];
   newService = {
     name: '',
@@ -37,10 +38,18 @@ export class ServicesComponent  {
   }
 
   loadServices() {
-    this.servicesService.getAllServices().subscribe((services) => {
-      this.services = services;
-      console.log(services);
-    });
+    this.loading = true;
+    this.servicesService.getAllServices().subscribe(
+      (services) => {
+        this.services = services;
+        console.log(services);
+        this.loading = false; 
+      },
+      (error) => {
+        console.error('Erreur lors du chargement des services :', error);
+        this.loading = false; 
+      }
+    );
   }
 
   onSubmit(){

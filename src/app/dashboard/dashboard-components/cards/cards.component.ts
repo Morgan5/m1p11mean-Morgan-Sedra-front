@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ServicesService } from 'src/app/components/services/services.service';
 
 interface cards {
   image: string;

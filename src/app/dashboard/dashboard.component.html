@@ -50,13 +50,28 @@
   </mat-card-content>
 </mat-card>
 
-<div class="row">
-  <div class="col-lg-4">
-    <app-activity></app-activity>
-  </div>
-  <div class="col-lg-8">
     <app-product></app-product>
+
+
+<div class="row mt-5">
+  <div class="col-lg-4" *ngFor="let service of services">
+    <mat-card class="overflow-hidden">
+      <div>
+        <img src="{{ cards[0].image }}" class="w-100" id="image" alt="">
+      </div>
+      <mat-card-content>
+        <div>
+          <p class="fs-18 lh-lg fw-medium">
+            {{ service.name }}
+          </p>
+          <p class="op-7">
+            {{ service.description }}
+          </p>
+            <button mat-flat-button color ="primary" class="fw-normal mt-4" (click)="voirPlus()">Voir plus</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
 
-<app-cards></app-cards>
+<!-- <app-cards></app-cards> -->

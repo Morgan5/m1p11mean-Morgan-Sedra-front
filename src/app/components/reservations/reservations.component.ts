@@ -72,12 +72,14 @@ export class ReservationsComponent {
   }
 
   loadAppointment(){
+    this.loading = true
     this.appointmentService.getFullAppointment().subscribe(
       (appointments)=>{
       this.appointments = appointments;
       this.appointments.sort((a, b) => {
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
       });
+      this.loading = false;
       }
     )
   };
@@ -138,6 +140,7 @@ export class ReservationsComponent {
       (response)=>{
         this.isFormService = false;
         this.editingAppoint = null;
+        this.loadAppointment();
         console.log('Service cree avec successe',response);
       },
       (error)=>{
@@ -151,6 +154,18 @@ export class ReservationsComponent {
       (response)=>{
         this.loadAppointment();
         console.log('Rendez vous supprimer avec successe',response);
+      },
+      (error)=>{
+        console.log('Erreur lors de la suppretion: ',error);
+      }
+    )
+  }
+
+  onDeleteRequestedService(appointId: string,requestedServiceId: string){
+    this.appointmentService.deleteRequestedService(appointId,requestedServiceId).subscribe(
+      (response)=>{
+        this.loadAppointment();
+        this.isServiceVisible = false;
       },
       (error)=>{
         console.log('Erreur lors de la suppretion: ',error);
@@ -201,21 +216,24 @@ export class ReservationsComponent {
     this.isFormService = false;
   }
   
-  onService(appointId: string){
+  loadService(appointId: string){
     this.loading = true;
-    this.isServiceVisible = !this.isServiceVisible;
     this.appointmentService.getAppointmentById(appointId).subscribe(
       (response)=>{
         this.selectedAppointment = response;
+        this.loading = false
         console.log(response);
       },
       (error)=>{
         console.log('Erreur lors de la recherche: ',error);
-      },
-      ()=>{
-        this.loading = false
       }
     )
+  }
+
+  onService(appointId: string){
+    this.loadService(appointId)
+    this.isServiceVisible = true;
+    
   }
 
   openNewReservation(){

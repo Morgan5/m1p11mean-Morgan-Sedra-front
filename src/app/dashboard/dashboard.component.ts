@@ -6,6 +6,13 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { AppointmentService } from '../components/reservations/reservations.service';
+import { ServicesService } from '../components/services/services.service';
+import { Router } from '@angular/router';
+
+interface cards {
+  image: string;
+  btn: string;
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -13,11 +20,12 @@ import { AppointmentService } from '../components/reservations/reservations.serv
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  services: any[] = [];
   appointmentPending: any[] = [];
   appointmentConfirmed: any[] = [];
   appointmentCancelled: any[] = [];
   
-  constructor(private appointmentService: AppointmentService ) { }
+  constructor(private appointmentService: AppointmentService, private serviceService: ServicesService,private router: Router) { }
 
   ngOnInit(): void {
     function refreshPageOnce() {
@@ -34,6 +42,13 @@ export class DashboardComponent implements OnInit {
       //console.log(decodedToken);
     }
     this.loadAppointment();
+    this.loadService();               
+  }
+
+  loadService(){
+    this.serviceService.getAllServices().subscribe((services) => {
+      this.services = services;
+    });
   }
 
   loadAppointment(){
@@ -107,6 +122,17 @@ export class DashboardComponent implements OnInit {
       );
     }
   }
+
+  voirPlus(){
+    this.router.navigate(['/services']);
+  }
+
+  cards: cards [] = [
+    {
+      image: "assets/images/u2.webp",
+      btn: "warn",
+    },
+  ]
   
   // && event.previousContainer.id === 'cdk-drop-list-0'
   // event.item.data[0]._id

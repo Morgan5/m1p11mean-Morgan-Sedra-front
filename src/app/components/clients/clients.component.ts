@@ -52,6 +52,7 @@ export class ClientsComponent {
     this.clientService.getAllClientsManager().subscribe(
       (response)=>{
         this.clients = response;
+        console.log(response);
       }
     )
   }
@@ -110,7 +111,6 @@ export class ClientsComponent {
     this.clientService.updateClient(this.editingClient._id, updateData).subscribe(
       (response) => {
         this.loadClient();
-        console.log('Client mis à jour avec succès :', response);
       },
       (error) => {
         console.error('Erreur lors de la mise à jour du client :', error);
