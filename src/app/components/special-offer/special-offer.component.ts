@@ -65,7 +65,7 @@ export class SpecialOfferComponent {
           console.log('Offre spéciale modifié avec succès :', response);
         },
         (error) => {
-          console.log('Erreur lors de la modification du rendez-vous :', error);
+          console.log('Erreur lors de la modification de l offre speciale :', error);
         }
       )
 

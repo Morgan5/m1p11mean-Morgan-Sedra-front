@@ -23,6 +23,7 @@ import { DashboardEmployeeComponent } from './dashboard-employee/dashboard-emplo
 import { ReservationEmployeeComponent } from './reservation-employee/reservation-employee.component';
 import { SpecialOfferComponent } from './special-offer/special-offer.component';
 import { ProfileEmployeeComponent } from './profile-employee/profile-employee.component';
+import { DepenseComponent } from './depense/depense.component';
 
 @NgModule({
   imports: [
@@ -71,7 +72,7 @@ import { ProfileEmployeeComponent } from './profile-employee/profile-employee.co
     PreferenceManagementComponent, 
     OnlinePaymentComponent, 
     LoginEmployeeManagerComponent, 
-    SpecialOfferComponent, 
+    SpecialOfferComponent, DepenseComponent, 
   ]
 })
 export class ComponentsModule { }
