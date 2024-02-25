@@ -1,15 +1,8 @@
 <mat-card class="no-shadow">
     <mat-card-content>
         <mat-toolbar>
-        <div class="row">
-            <div class="col-lg-8">
-                <h3>My Account</h3>
-            </div>
-            <div class="col-lg-4">         
-            <button mat-raised-button class="me-8 mb-8 ml-auto" color="primary" >Edit profile</button>
-            <button mat-raised-button class="me-8 mb-8 ml-auto" color="primary" >Edit password</button>
-            </div>
-        </div>
+            <h3>My Account</h3>       
+            <button mat-raised-button class="me-8 mb-8 ml-auto" color="primary" (click)="openEditPassword()" >Edit password</button>
         </mat-toolbar>
     </mat-card-content>
 </mat-card>
@@ -17,9 +10,10 @@
 <div class="card" [ngClass]="{'visible': isVisibleFrom, 'hidden': !isVisibleFrom}" >
     <div class="card-body">
       <h4 class="mb-32">Employee</h4>
-      <div class="alert alert-border-danger alert-text-danger background-none d-flex fs-14 align-items-center rounded mb-16" role="alert" *ngIf="errorMessage != ''">
-        <i-feather name="alert-circle" class="text-danger feather-base me-12"></i-feather>
-        {{ errorMessage }}
+      <div class="alert {{ alerts.border }} {{ alerts.color }} background-none d-flex fs-14 align-items-center rounded mb-16"
+      role="alert" *ngIf="alerts.message != ''">
+      <i-feather name="{{ alerts.icon }}" class="{{ alerts.iconColor }} feather-base me-12"></i-feather>
+      {{ alerts.message }}
       </div>
       <form (ngSubmit)="onSumbit()">
       
@@ -53,7 +47,6 @@
         <input matInput [(ngModel)]="emp.password" name="password" type="password" required>
       </mat-form-field>
   
-      <button mat-raised-button class="me-8 mb-8" (click)="onClose()" type="button" >Close</button>
       <button mat-raised-button class="me-8 mb-8 ml-auto" color="primary" type="submit" >Submit</button>
     </form>
 
