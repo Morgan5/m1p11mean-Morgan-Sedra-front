@@ -9,6 +9,10 @@ import { CardsComponent } from './dashboard-components/cards/cards.component';
 import { FormsModule } from '@angular/forms';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { TempMoyenTravailEmployeComponent } from './dashboard-components/temp-moyen-travail-employe/temp-moyen-travail-employe.component';
+import { NbReservationComponent } from './dashboard-components/nb-reservation/nb-reservation.component';
+import { ChiffreAffaireComponent } from './dashboard-components/chiffre-affaire/chiffre-affaire.component';
+import { BeneficeComponent } from './dashboard-components/benefice/benefice.component';
 
 
 @NgModule({
@@ -18,6 +22,10 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ActivityComponent,
     ProductComponent,
     CardsComponent,
+    TempMoyenTravailEmployeComponent,
+    NbReservationComponent,
+    ChiffreAffaireComponent,
+    BeneficeComponent,
   ],
   imports: [
     CommonModule,

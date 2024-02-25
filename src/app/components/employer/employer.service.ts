@@ -34,4 +34,14 @@ export class EmployerService {
     createTask(empId: string,newTask: any): Observable<any>{
         return this.http.post<any>(`${this.apiUrl}/tasksCompleted/${empId}`,newTask);
     }
+
+    //le temps moyen travaillé par jour pour un employé
+    getTMTJById(empId: string): Observable<any[]> {
+        return this.http.get<any[]>(`${this.apiUrl}/tmtj/${empId}`);
+    }
+
+    //le temps moyen travaillé par mois pour un employé
+    getTMTMById(empId: string): Observable<any[]> {
+        return this.http.get<any[]>(`${this.apiUrl}/tmtm/${empId}`);
+    }
 }

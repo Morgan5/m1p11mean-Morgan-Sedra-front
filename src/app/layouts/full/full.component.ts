@@ -160,7 +160,12 @@ export class FullComponent {
         link: "/special-offer",
         icon: "sliders",
         menu: "Offres spéciales",
-      },
+      },  
+      {
+        link: "/depense",
+        icon: "sliders",
+        menu: "Dépenses",
+      }
       // {
       //   link: "/tasks",
       //   icon: "list",

@@ -20,6 +20,7 @@ import { DashboardEmployeeComponent } from './components/dashboard-employee/dash
 import { ReservationEmployeeComponent } from './components/reservation-employee/reservation-employee.component';
 import { SpecialOfferComponent } from './components/special-offer/special-offer.component';
 import { ProfileEmployeeComponent } from './components/profile-employee/profile-employee.component';
+import { DepenseComponent } from './components/depense/depense.component';
 
 const routes: Routes = [
   {
@@ -45,7 +46,9 @@ const routes: Routes = [
       {path:"reservation-employee",component:ReservationEmployeeComponent},
       {path:"login-employee-manager",component:LoginEmployeeManagerComponent},
       {path:"special-offer", component:SpecialOfferComponent},
-      {path:"profile-employee",component:ProfileEmployeeComponent}
+      {path:"profile-employee",component:ProfileEmployeeComponent},
+      {path:"depense",component:DepenseComponent}
+
     ]
   },
 
