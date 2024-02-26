@@ -110,6 +110,36 @@
     </mat-card-content>
 </mat-card>
 
+<mat-card class="w-100" *ngIf="isPaymentVisible">
+    <mat-card-content>
+        <div *ngIf="payment_error" class="alert alert-danger alert-text-danger d-flex fs-14 align-items-center rounded mb-16" role="alert">
+            <i-feather name="alert-circle" class="text-danger feather-base me-12"></i-feather>
+            {{ message_payment }}
+        </div>
+
+        <div *ngIf="payment_succes" class="alert alert-success alert-text-success d-flex fs-14 align-items-center rounded mb-16" role="alert">
+            <i-feather name="check-circle" class="text-success feather-base me-12"></i-feather>
+            {{ message_payment }}
+        </div>
+        <h3 class="mb-32">Paiement rendez-vous</h3>
+        <form (ngSubmit)="onSubmitPayment()">
+            <h4 class="mb-32">Montant total service : {{ total_amount }} Ar</h4>
+            <mat-form-field class="me-24 fs-16" appearance="outline">
+                <mat-label>Montant</mat-label>
+                <input matInput [(ngModel)]="entered_amount" type="number" name="entered_amount">
+            </mat-form-field>
+
+            <mat-form-field class="me-24 fs-16" appearance="outline">
+                <mat-label>Carte bancaire (16 chiffres)</mat-label>
+                <input matInput [(ngModel)]="credit_card" name="credit_card">
+            </mat-form-field>
+
+            <button mat-raised-button class="me-8 mb-8" type="button" (click)="onClosePayment()">Fermer</button>
+            <button mat-raised-button class="me-8 mb-8 ml-auto" type="submit" color="primary">Payer</button>
+        </form>
+    </mat-card-content>
+</mat-card>
+
 <mat-card class="w-100">
     <mat-card-content>
         <h4 class="mb-32">Historiques</h4>
@@ -142,6 +172,10 @@
                         </button>
                         <button mat-icon-button color="warn" (click)="onDelete(res._id)">
                             <mat-icon>delete</mat-icon>
+                        </button>
+                        <button *ngIf="res.status == 'Pending'" mat-icon-button color="primary"
+                            (click)="onPayment(res)">
+                            <mat-icon>attach_money</mat-icon>
                         </button>
                     </td>
                 </tr>
