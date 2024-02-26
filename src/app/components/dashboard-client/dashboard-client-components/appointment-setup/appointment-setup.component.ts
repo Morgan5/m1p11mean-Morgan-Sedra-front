@@ -24,6 +24,14 @@ export class AppointmentSetupComponent {
   isEditEnabled: boolean = false;
   isServiceVisible: boolean = false;
   loading: boolean = false;
+  isPaymentVisible: boolean = false;
+  total_amount: number = 0;
+  entered_amount: number = 0;
+  credit_card: string = '';
+  appointmentOnPayment: any = null;
+  message_payment: string = '';
+  payment_error: boolean = false;
+  payment_succes: boolean = false;
 
   appointments: any[] = [];
   selectedAppointment: any;
@@ -79,6 +87,7 @@ export class AppointmentSetupComponent {
     this.appointmentSetupService.getClientAppointment(this.clientId).subscribe(
       (appointments) => {
         this.appointments = appointments;
+        console.log(appointments);
       }
     )
   };
@@ -122,7 +131,7 @@ export class AppointmentSetupComponent {
   };
 
   onSubmitService() {
-    if(this.editingService){
+    if (this.editingService) {
       this.appointmentSetupService.updateRequestedServices(this.editingAppoint._id, this.newService, this.editingService).subscribe(
         (response) => {
           this.isFormService = false;
@@ -170,7 +179,7 @@ export class AppointmentSetupComponent {
     )
   }
 
-  onDeleteRequestedServiceAppointment(appointmentId: any, requestedServiceId: any){
+  onDeleteRequestedServiceAppointment(appointmentId: any, requestedServiceId: any) {
     console.log(appointmentId);
     console.log(requestedServiceId);
     this.appointmentSetupService.deleteRequestedServiceAppointment(appointmentId, requestedServiceId).subscribe(
@@ -195,7 +204,7 @@ export class AppointmentSetupComponent {
         }
       ]
     };
-    
+
     this.newService = {
       requestedServices: [
         {
@@ -268,4 +277,84 @@ export class AppointmentSetupComponent {
     this.isVisibleFrom = false;
   }
 
+  onPayment(appoint: any) {
+    console.log(appoint);
+    this.appointmentOnPayment = appoint;
+    let montant_total = 0;
+    appoint.requestedServices.forEach((element: any) => {
+      montant_total += element.serviceId.price;
+    });
+    this.total_amount = montant_total;
+    this.isPaymentVisible = true;
+  }
+
+  onClosePayment() {
+    this.clearPayment();
+  }
+
+  onSubmitPayment() {
+    if (this.entered_amount == this.total_amount) {
+      if (this.isValidCreditCardNumber(this.credit_card)) {
+        this.appointmentOnPayment.status = 'Confirmed';
+        this.message_payment = 'Paiement avec succés';
+        this.payment_error = false;
+        this.payment_succes = true;
+        this.appointmentSetupService.updateAppointment(this.appointmentOnPayment._id, this.appointmentOnPayment).subscribe(
+          (response) => {
+            this.loadAppointment();
+            console.log('Rendez-vous payé avec succès :', response);
+          },
+          (error) => {
+            console.log('Erreur lors de la modification du rendez-vous :', error);
+          }
+        );
+
+        setTimeout(() => {
+          this.clearPayment();
+        }, 2000);
+
+      } else {
+        this.message_payment = 'Carte de crédit invalide : 16 chiffres';
+        this.payment_error = true;
+      }
+
+    } else {
+      this.message_payment = 'Veuillez vérifier le montant';
+      this.payment_error = true;
+    }
+
+  }
+
+  isValidCreditCardNumber(cardNumber: string): boolean {
+    const digitsOnly = cardNumber.replace(/\D/g, '');
+    if (digitsOnly.length == 16) {
+      return true;
+    } else {
+      return false;
+    }
+    /*const digitArray = digitsOnly.split('').map(Number);
+    let sum = 0;
+    for (let i = 0; i < digitArray.length; i++) {
+      let digit = digitArray[i];
+      if (i % 2 === 0) {
+        digit *= 2;
+        if (digit > 9) {
+          digit -= 9;
+        }
+      }
+      sum += digit;
+    }
+    return sum % 10 === 0;*/
+  }
+
+  clearPayment() {
+    this.total_amount = 0;
+    this.entered_amount = 0;
+    this.credit_card = '';
+    this.appointmentOnPayment = null;
+    this.message_payment = '';
+    this.payment_error = false;
+    this.payment_succes = false;
+    this.isPaymentVisible = false;
+  }
 }

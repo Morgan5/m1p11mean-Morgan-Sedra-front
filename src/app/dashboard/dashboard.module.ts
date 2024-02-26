@@ -13,6 +13,7 @@ import { TempMoyenTravailEmployeComponent } from './dashboard-components/temp-mo
 import { NbReservationComponent } from './dashboard-components/nb-reservation/nb-reservation.component';
 import { ChiffreAffaireComponent } from './dashboard-components/chiffre-affaire/chiffre-affaire.component';
 import { BeneficeComponent } from './dashboard-components/benefice/benefice.component';
+import { PaiementClientComponent } from './dashboard-components/paiement-client/paiement-client.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { BeneficeComponent } from './dashboard-components/benefice/benefice.comp
     NbReservationComponent,
     ChiffreAffaireComponent,
     BeneficeComponent,
+    PaiementClientComponent,
   ],
   imports: [
     CommonModule,

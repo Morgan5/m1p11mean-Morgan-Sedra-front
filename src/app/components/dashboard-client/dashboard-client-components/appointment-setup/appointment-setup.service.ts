@@ -61,4 +61,12 @@ export class AppointmentSetupService {
   getAppointmentById(appointmentId: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/appointment/${appointmentId}`);
   }
+
+  getAppointments(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/all`);
+  }
+
+  getFullAppointment(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/full`);
+  }
 }
