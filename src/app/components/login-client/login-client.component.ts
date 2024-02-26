@@ -8,8 +8,8 @@ import { UserAuthService } from '../../user-auth.service';
   styleUrls: ['./login-client.component.scss']
 })
 export class LoginClientComponent implements OnInit {
-  email:string = '';
-  password:string = '';
+  email:string = 'test@gmail.com';
+  password:string = '12345678';
   isSubmitting:boolean = false;
   validationErrors:Array<any> = [];
   message:string = '';

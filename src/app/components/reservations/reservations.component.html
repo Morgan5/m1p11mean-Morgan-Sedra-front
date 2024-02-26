@@ -94,10 +94,15 @@
   <mat-spinner></mat-spinner>  
 </div>
 
-<div class="col-lg-8">
   <mat-card class="w-100" *ngIf="isServiceVisible && selectedAppointment && selectedAppointment[0]">
+    <mat-card-header>
+      <div class="close-button">
+        <button mat-icon-button (click)="closeServices()" >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </mat-card-header>
     <mat-card-content>
-      <button mat-raised-button class="me-8 mb-8" type="button" >Close</button>
       <table class="table">
         <thead>
           <tr>
@@ -124,7 +129,6 @@
       </table>
     </mat-card-content>
   </mat-card>    
-</div>
 
 <mat-card class="w-100">
   <mat-card-content>

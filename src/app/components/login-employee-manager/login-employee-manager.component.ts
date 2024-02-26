@@ -8,8 +8,8 @@ import { EmployeeManagerService } from './employee-manager.service';
   styleUrls: ['./login-employee-manager.component.scss']
 })
 export class LoginEmployeeManagerComponent {
-  email:string = '';
-  password:string = '';
+  email:string = 'admin@gmail.com';
+  password:string = '1234';
   isSubmitting:boolean = false;
   validationErrors:Array<any> = [];
   message:string = '';

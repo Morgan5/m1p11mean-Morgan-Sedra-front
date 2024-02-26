@@ -262,6 +262,10 @@ export class ReservationsComponent {
   
     return dateToCompare < today;
   }
+
+  closeServices(){
+    this.isServiceVisible = false;
+  }
   
 
   generateCalendar() {

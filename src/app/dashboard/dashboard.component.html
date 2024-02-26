@@ -2,19 +2,24 @@
 
 <app-temp-moyen-travail-employe></app-temp-moyen-travail-employe>
 
-<app-nb-reservation></app-nb-reservation>
-
-<app-chiffre-affaire></app-chiffre-affaire>
+<div class="row">
+  <div class="col-lg-6" >
+    <app-nb-reservation></app-nb-reservation>
+  </div>
+  <div class="col-lg-6" >
+    <app-chiffre-affaire></app-chiffre-affaire>
+  </div>
+</div>
 
 <app-benefice></app-benefice>
 
 <mat-card class="w-100">
   <mat-card-content>
-    <h3>Rendez-vous de cette semaine</h3>
+    <h3>Rendez-vous de cette semaine (Drag and Drop)</h3>
     <div cdkDropListGroup class="row mt-3">
       <div class="col-lg-4">    
         <div class="example-container">
-          <h2>Pending</h2>
+          <h2 style="color: rgb(254, 212, 105);">Pending</h2>
           <div cdkDropList [cdkDropListData]="appointmentPending" class="example-list" (cdkDropListDropped)="drop($event)">
             <div *ngFor="let item of appointmentPending" class="example-box" cdkDrag [cdkDragData]="item">
               <p>{{item.clientId.firstName+' '+item.clientId.lastName}}</p>
@@ -25,7 +30,7 @@
       </div>
       <div class="col-lg-4">
         <div class="example-container">
-          <h2>Confirmed</h2>
+          <h2 style="color: rgb(78, 178, 249);">Confirmed</h2>
           <div cdkDropList [cdkDropListData]="appointmentConfirmed" class="example-list" (cdkDropListDropped)="drop($event)">
             <div *ngFor="let item of appointmentConfirmed" class="example-box" cdkDrag [cdkDragData]="item">
               <p>{{item.clientId.firstName+' '+item.clientId.lastName}}</p>
@@ -36,7 +41,7 @@
       </div>
       <div class="col-lg-4">
         <div class="example-container">
-          <h2>Cancelled</h2>
+          <h2 style="color: rgb(247, 105, 105);">Cancelled</h2>
           <div cdkDropList [cdkDropListData]="appointmentCancelled" class="example-list" (cdkDropListDropped)="drop($event)">
             <div *ngFor="let item of appointmentCancelled" class="example-box" cdkDrag [cdkDragData]="item">
               <p>{{item.clientId.firstName+' '+item.clientId.lastName}}</p>

@@ -22,6 +22,7 @@ import { SpecialOfferComponent } from './components/special-offer/special-offer.
 import { ProfileEmployeeComponent } from './components/profile-employee/profile-employee.component';
 import { DepenseComponent } from './components/depense/depense.component';
 import { AuthGuard } from 'src/environments/AuthGuard';
+import { AuthGuardClient } from 'src/environments/AuthGuardClient';
 
 const routes: Routes = [
   {
@@ -29,7 +30,7 @@ const routes: Routes = [
     component:FullComponent,
     children: [
       // Route manager 
-      {path:"", redirectTo:"/home", pathMatch:"full"},
+      {path:"", redirectTo:"/dashboard-client", pathMatch:"full"},
       {path:"home", component:DashboardComponent,canActivate:[AuthGuard]},
       {path:"reservations", component:ReservationsComponent,canActivate:[AuthGuard]},
       {path:"services", component:ServicesComponent,canActivate:[AuthGuard]},
@@ -38,6 +39,7 @@ const routes: Routes = [
       {path:"tasks",component:TasksComponent,canActivate:[AuthGuard]},
       {path:"special-offer", component:SpecialOfferComponent,canActivate:[AuthGuard]},
       {path:"depense",component:DepenseComponent,canActivate:[AuthGuard]},
+      {path:"login-employee-manager",component:LoginEmployeeManagerComponent},
 
       // Route employee
       {path:"dashboard-employee",component:DashboardEmployeeComponent,canActivate:[AuthGuard]},
@@ -48,11 +50,10 @@ const routes: Routes = [
       {path:"inscription-client",component:InscriptionClientComponent},
       {path:"login-client",component:LoginClientComponent},
       {path:"dashboard-client",component:DashboardClientComponent},
-      {path:"appointment-history-client",component:AppointmentHistoryComponent},
-      {path:"appointment-setup-client",component:AppointmentSetupComponent},
-      {path:"online-payment-client",component:OnlinePaymentComponent},
-      {path:"preference-management-client",component:PreferenceManagementComponent},
-      {path:"login-employee-manager",component:LoginEmployeeManagerComponent},
+      {path:"appointment-history-client",component:AppointmentHistoryComponent,canActivate:[AuthGuardClient]},
+      {path:"appointment-setup-client",component:AppointmentSetupComponent,canActivate:[AuthGuardClient]},
+      {path:"online-payment-client",component:OnlinePaymentComponent,canActivate:[AuthGuardClient]},
+      {path:"preference-management-client",component:PreferenceManagementComponent,canActivate:[AuthGuardClient]},
     ]
   },
 

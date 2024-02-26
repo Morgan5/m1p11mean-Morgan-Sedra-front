@@ -39,7 +39,8 @@ import { DepenseComponent } from './depense/depense.component';
     ReservationsComponent,
     TasksComponent,
     ReservationEmployeeComponent,
-    ProfileEmployeeComponent
+    ProfileEmployeeComponent,
+    DashboardClientComponent,
   ],
   exports: [
     MenuComponent,
@@ -56,7 +57,6 @@ import { DepenseComponent } from './depense/depense.component';
   
     InscriptionClientComponent, 
     LoginClientComponent,
-    DashboardClientComponent,
     AppointmentSetupComponent,
     AppointmentHistoryComponent,
     PreferenceManagementComponent, 
@@ -66,7 +66,6 @@ import { DepenseComponent } from './depense/depense.component';
 
     InscriptionClientComponent, 
     LoginClientComponent, 
-    DashboardClientComponent, 
     AppointmentSetupComponent, 
     AppointmentHistoryComponent, 
     PreferenceManagementComponent, 

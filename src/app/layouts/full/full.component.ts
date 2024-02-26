@@ -98,7 +98,7 @@ export class FullComponent {
       },
       {
         link: "/appointment-setup-client",
-        icon: "list",
+        icon: "calendar",
         menu: "Rendez-vous",
       },
       {
@@ -158,12 +158,12 @@ export class FullComponent {
       },      
       {
         link: "/special-offer",
-        icon: "sliders",
+        icon: "gift",
         menu: "Offres spéciales",
       },  
       {
         link: "/depense",
-        icon: "sliders",
+        icon: "credit-card",
         menu: "Dépenses",
       }
       // {
@@ -174,6 +174,9 @@ export class FullComponent {
     );
   }
 
+  goToAdmin(){
+    this.router.navigate(['/login-employee-manager'])
+  }
 
 
 }
