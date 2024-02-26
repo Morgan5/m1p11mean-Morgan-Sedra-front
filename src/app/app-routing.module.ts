@@ -21,19 +21,30 @@ import { ReservationEmployeeComponent } from './components/reservation-employee/
 import { SpecialOfferComponent } from './components/special-offer/special-offer.component';
 import { ProfileEmployeeComponent } from './components/profile-employee/profile-employee.component';
 import { DepenseComponent } from './components/depense/depense.component';
+import { AuthGuard } from 'src/environments/AuthGuard';
 
 const routes: Routes = [
   {
     path:"",
     component:FullComponent,
     children: [
+      // Route manager 
       {path:"", redirectTo:"/home", pathMatch:"full"},
-      {path:"home", component:DashboardComponent},
-      {path:"reservations", component:ReservationsComponent},
-      {path:"services", component:ServicesComponent},
-      {path:"employers", component:EmployerComponent},
-      {path:"clients",component:ClientsComponent},
-      {path:"tasks",component:TasksComponent},
+      {path:"home", component:DashboardComponent,canActivate:[AuthGuard]},
+      {path:"reservations", component:ReservationsComponent,canActivate:[AuthGuard]},
+      {path:"services", component:ServicesComponent,canActivate:[AuthGuard]},
+      {path:"employers", component:EmployerComponent,canActivate:[AuthGuard]},
+      {path:"clients",component:ClientsComponent,canActivate:[AuthGuard]},
+      {path:"tasks",component:TasksComponent,canActivate:[AuthGuard]},
+      {path:"special-offer", component:SpecialOfferComponent,canActivate:[AuthGuard]},
+      {path:"depense",component:DepenseComponent,canActivate:[AuthGuard]},
+
+      // Route employee
+      {path:"dashboard-employee",component:DashboardEmployeeComponent,canActivate:[AuthGuard]},
+      {path:"reservation-employee",component:ReservationEmployeeComponent,canActivate:[AuthGuard]},
+      {path:"profile-employee",component:ProfileEmployeeComponent,canActivate:[AuthGuard]},
+
+      //Route client
       {path:"inscription-client",component:InscriptionClientComponent},
       {path:"login-client",component:LoginClientComponent},
       {path:"dashboard-client",component:DashboardClientComponent},
@@ -42,13 +53,6 @@ const routes: Routes = [
       {path:"online-payment-client",component:OnlinePaymentComponent},
       {path:"preference-management-client",component:PreferenceManagementComponent},
       {path:"login-employee-manager",component:LoginEmployeeManagerComponent},
-      {path:"dashboard-employee",component:DashboardEmployeeComponent},
-      {path:"reservation-employee",component:ReservationEmployeeComponent},
-      {path:"login-employee-manager",component:LoginEmployeeManagerComponent},
-      {path:"special-offer", component:SpecialOfferComponent},
-      {path:"profile-employee",component:ProfileEmployeeComponent},
-      {path:"depense",component:DepenseComponent}
-
     ]
   },
 
