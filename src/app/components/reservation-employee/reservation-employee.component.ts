@@ -28,6 +28,7 @@ export class ReservationEmployeeComponent {
   appointments: any[] = [];
   searchTerm: string = '';
   user = { id: '',firstName: '', lastName: '', token: '' };
+  loading:boolean = false;
   
   constructor(private appointmentService: AppointmentService,private reservationsEmployeeFilter: ReservationEmployeeFilterPipe,private employeService: EmployerService){
     const token = sessionStorage.getItem('token');
@@ -46,6 +47,7 @@ export class ReservationEmployeeComponent {
   }
 
   loadAppointment(){
+    this.loading = true
     this.appointmentService.getAllAppointmentsForEmployee(this.user.id).subscribe(
       (response)=>{
         this.appointments = response;
@@ -53,6 +55,7 @@ export class ReservationEmployeeComponent {
         this.appointments.sort((a, b) => {
           return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
         });
+        this.loading = false;
       },
       (error)=>{
         console.log('Erreur lors de l\'importation: ',error);

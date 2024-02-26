@@ -56,7 +56,7 @@ export class DashboardEmployeeComponent {
     this.chart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Jour 1', 'Jour 2', 'Jour 3', 'Jour 4', 'Jour 5'],
+        labels: ['2024-02-23', '2024-02-24', '2024-02-25', '2024-02-26', '2024-02-27'],
         datasets: [
           {
             label: 'Nombre de tâches effectuées',
