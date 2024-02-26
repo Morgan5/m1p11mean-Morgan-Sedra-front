@@ -7,7 +7,11 @@
       </mat-toolbar>
     </mat-card-content>
   </mat-card>
-
+  
+  <div *ngIf="loading">
+    <mat-spinner></mat-spinner>  
+  </div>
+  
   <mat-card class="w-100">
     <mat-card-content>
       <div class="alert {{ alerts.border }} {{ alerts.color }} background-none d-flex fs-14 align-items-center rounded mb-16"
